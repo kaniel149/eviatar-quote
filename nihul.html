@@ -165,6 +165,26 @@
   .note{margin-top:12px;padding:12px 16px;border-radius:12px;background:rgba(95,191,169,.08);
     border:1px solid rgba(95,191,169,.22);font-size:13px;color:#cdeae3}
 
+  /* glossary */
+  .glos{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:10px}
+  .term{background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .term .t{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .term .ab{font-family:'Jost',sans-serif;font-weight:600;font-size:12.5px;letter-spacing:.06em;padding:3px 9px;border-radius:7px}
+  .ab.evm{background:rgba(227,169,58,.16);color:var(--gold)}
+  .ab.sch{background:rgba(95,191,169,.16);color:var(--teal)}
+  .ab.fin{background:rgba(236,79,134,.16);color:var(--lky)}
+  .ab.qa{background:rgba(76,195,138,.16);color:var(--green)}
+  .term .nm{font-weight:800;font-size:14px}
+  .term .en{color:var(--muted);font-size:11.5px;font-family:'Jost',sans-serif}
+  .term .f{font-family:'Jost',sans-serif;font-size:12px;color:var(--teal);background:rgba(95,191,169,.1);
+    border:1px solid rgba(95,191,169,.2);border-radius:6px;padding:2px 8px;margin-top:9px;display:inline-block;direction:ltr}
+  .term p{font-size:12.8px;color:var(--ink-dim);margin-top:8px;line-height:1.55}
+  .term .pv{font-size:12.3px;margin-top:8px;color:var(--muted)}
+  .term .pv b{color:var(--sun2)}
+  .glos-sub{font-family:'Jost',sans-serif;font-size:11.5px;font-weight:500;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--muted);margin-top:20px;margin-bottom:2px}
+  @media(max-width:640px){.glos{grid-template-columns:1fr}}
+
   footer{border-top:1px solid var(--line);margin-top:54px;padding-top:22px;display:flex;justify-content:space-between;
     align-items:center;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:12px}
 
@@ -178,7 +198,7 @@
   <!-- HEADER -->
   <header>
     <div class="brandlock"><a href="home.html"><span class="mk-sun lk-sun"></span><span class="wm">LKY</span><span class="bx">×</span><span class="wm wm-bustan">Bustan</span><span class="mk-orb lk-orb"></span></a></div>
-    <div class="crumbs"><a href="home.html">בית</a> · <a href="shutafut.html">שותפות</a> · <a href="./">תמחור</a></div>
+    <div class="crumbs"><a href="home.html">בית</a> · <a href="shutafut.html">שותפות</a> · <a href="./">תמחור</a> · <a href="#glossary">מילון מונחים</a></div>
     <div class="eyebrow">דוגמה · בקרת פרויקט</div>
     <h1>מישור רותם 17MW — תכנון מול ביצוע</h1>
     <p class="sub">שבוע 8 מתוך 18 · עדכון אחרון: סוף שבוע 7 · כל הסכומים ב-₪ אלפים · שיטת ערך מוקנה (EVM)</p>
@@ -191,12 +211,12 @@
     </div>
 
     <div class="kpis">
-      <div class="kpi"><div class="l">התקדמות בפועל</div><div class="v t">40%</div><div class="d muted">מתוכנן 46%</div></div>
-      <div class="kpi"><div class="l">SPI · לוח זמנים</div><div class="v r">0.87</div><div class="d down">▼ פיגור</div></div>
-      <div class="kpi"><div class="l">CPI · עלות</div><div class="v gr">1.01</div><div class="d up">▲ בתקציב</div></div>
-      <div class="kpi"><div class="l">סטיית לו"ז</div><div class="v g">−1 שב'</div><div class="d muted">17→18 שב'</div></div>
-      <div class="kpi"><div class="l">תחזית עלות (EAC)</div><div class="v">₪3.96M</div><div class="d up">חיסכון ₪38K</div></div>
-      <div class="kpi"><div class="l">רווח צפוי</div><div class="v gr">18.5%</div><div class="d up">יעד 17.7%</div></div>
+      <div class="kpi" title="חלק העבודה שהושלם בפועל מול המתוכנן"><div class="l">התקדמות בפועל</div><div class="v t">40%</div><div class="d muted">מתוכנן 46%</div></div>
+      <div class="kpi" title="Schedule Performance Index = EV÷PV · מתחת ל-1 = פיגור"><div class="l">SPI · לוח זמנים</div><div class="v r">0.87</div><div class="d down">▼ פיגור</div></div>
+      <div class="kpi" title="Cost Performance Index = EV÷AC · מעל 1 = חיסכון"><div class="l">CPI · עלות</div><div class="v gr">1.01</div><div class="d up">▲ בתקציב</div></div>
+      <div class="kpi" title="סטייה צפויה במשך הפרויקט"><div class="l">סטיית לו"ז</div><div class="v g">−1 שב'</div><div class="d muted">17→18 שב'</div></div>
+      <div class="kpi" title="Estimate at Completion = BAC÷CPI · תחזית עלות סופית"><div class="l">תחזית עלות (EAC)</div><div class="v">₪3.96M</div><div class="d up">חיסכון ₪38K</div></div>
+      <div class="kpi" title="הכנסות פחות תחזית העלות"><div class="l">רווח צפוי</div><div class="v gr">18.5%</div><div class="d up">יעד 17.7%</div></div>
     </div>
   </header>
 
@@ -206,12 +226,12 @@
     <div class="cols">
       <div class="card">
         <div class="evm">
-          <div class="e"><div class="l"><b>PV</b> · ערך מתוכנן</div><div class="v">1,840</div></div>
-          <div class="e"><div class="l"><b>EV</b> · ערך מוקנה</div><div class="v" style="color:var(--sun2)">1,600</div></div>
-          <div class="e"><div class="l"><b>AC</b> · עלות בפועל</div><div class="v">1,580</div></div>
-          <div class="e"><div class="l"><b>SV</b> · סטיית לו"ז</div><div class="v bad">−240</div></div>
-          <div class="e"><div class="l"><b>CV</b> · סטיית עלות</div><div class="v ok">+20</div></div>
-          <div class="e"><div class="l"><b>EAC</b> · תחזית סיום</div><div class="v">3,962</div></div>
+          <div class="e" title="Planned Value — שווי העבודה שתוכננה עד היום (%מתוכנן × BAC)"><div class="l"><b>PV</b> · ערך מתוכנן</div><div class="v">1,840</div></div>
+          <div class="e" title="Earned Value — שווי העבודה שבוצעה בפועל (%בוצע × BAC)"><div class="l"><b>EV</b> · ערך מוקנה</div><div class="v" style="color:var(--sun2)">1,600</div></div>
+          <div class="e" title="Actual Cost — כמה כסף באמת הוצא"><div class="l"><b>AC</b> · עלות בפועל</div><div class="v">1,580</div></div>
+          <div class="e" title="Schedule Variance = EV − PV · שלילי = פיגור"><div class="l"><b>SV</b> · סטיית לו"ז</div><div class="v bad">−240</div></div>
+          <div class="e" title="Cost Variance = EV − AC · חיובי = חיסכון"><div class="l"><b>CV</b> · סטיית עלות</div><div class="v ok">+20</div></div>
+          <div class="e" title="Estimate at Completion = BAC ÷ CPI"><div class="l"><b>EAC</b> · תחזית סיום</div><div class="v">3,962</div></div>
         </div>
         <div class="note">EV (1,600) מתחת ל-PV (1,840) → פיגור של ~6% בלו"ז, אך מעל AC (1,580) → העלות בשליטה. תקציב סופי (BAC) ₪4,000K.</div>
       </div>
@@ -445,6 +465,56 @@
           <tr><td>שינויים פתוחים (Change Orders)</td><td>2 · ₪+45K</td></tr>
         </table>
       </div>
+    </div>
+  </section>
+
+  <!-- GLOSSARY -->
+  <section id="glossary">
+    <div class="sec-head"><h2>📖 מילון מונחים</h2><span class="muted" style="font-size:12.5px">כל ערך בדאשבורד — שם, נוסחה, והערך בפרויקט</span></div>
+    <div class="card">
+
+      <div class="glos-sub">ניהול ערך מוקנה · EVM</div>
+      <div class="glos">
+        <div class="term"><div class="t"><span class="ab evm">BAC</span><span class="nm">תקציב כולל</span><span class="en">Budget at Completion</span></div><p>סך העלות המתוכננת לכל הפרויקט — בסיס ההשוואה לכל המדדים.</p><div class="pv">בפרויקט: <b>₪4,000K</b></div></div>
+        <div class="term"><div class="t"><span class="ab evm">PV</span><span class="nm">ערך מתוכנן</span><span class="en">Planned Value</span></div><span class="f">% מתוכנן × BAC</span><p>שווי העבודה שהיתה אמורה להסתיים עד היום, לפי התקציב.</p><div class="pv">בפרויקט: <b>₪1,840K</b> (46%×4,000)</div></div>
+        <div class="term"><div class="t"><span class="ab evm">EV</span><span class="nm">ערך מוקנה</span><span class="en">Earned Value</span></div><span class="f">% בוצע × BAC</span><p>שווי העבודה שבוצעה בפועל — כמה "הרווחנו" מהתקציב עד היום.</p><div class="pv">בפרויקט: <b>₪1,600K</b> (40%×4,000)</div></div>
+        <div class="term"><div class="t"><span class="ab evm">AC</span><span class="nm">עלות בפועל</span><span class="en">Actual Cost</span></div><p>כמה כסף באמת הוצא על העבודה שבוצעה.</p><div class="pv">בפרויקט: <b>₪1,580K</b></div></div>
+        <div class="term"><div class="t"><span class="ab evm">SV</span><span class="nm">סטיית לו"ז</span><span class="en">Schedule Variance</span></div><span class="f">EV − PV</span><p>פער מול התכנון, בכסף. שלילי = פיגור.</p><div class="pv">בפרויקט: <b>−240</b> → פיגור</div></div>
+        <div class="term"><div class="t"><span class="ab evm">CV</span><span class="nm">סטיית עלות</span><span class="en">Cost Variance</span></div><span class="f">EV − AC</span><p>פער מול התקציב. חיובי = חיסכון.</p><div class="pv">בפרויקט: <b>+20</b> → חיסכון</div></div>
+        <div class="term"><div class="t"><span class="ab evm">SPI</span><span class="nm">מדד ביצועי לו"ז</span><span class="en">Schedule Performance Index</span></div><span class="f">EV ÷ PV</span><p>יעילות הקצב. מתחת ל-1 = פיגור · 1 = בדיוק · מעל 1 = מקדימים.</p><div class="pv">בפרויקט: <b>0.87</b> → ~13% פיגור</div></div>
+        <div class="term"><div class="t"><span class="ab evm">CPI</span><span class="nm">מדד ביצועי עלות</span><span class="en">Cost Performance Index</span></div><span class="f">EV ÷ AC</span><p>יעילות הכסף. מתחת ל-1 = חריגה · מעל 1 = חיסכון.</p><div class="pv">בפרויקט: <b>1.01</b> → על התקציב</div></div>
+        <div class="term"><div class="t"><span class="ab evm">EAC</span><span class="nm">תחזית עלות בסיום</span><span class="en">Estimate at Completion</span></div><span class="f">BAC ÷ CPI</span><p>כמה הפרויקט צפוי לעלות בסוף, לפי הקצב הנוכחי.</p><div class="pv">בפרויקט: <b>₪3,962K</b></div></div>
+        <div class="term"><div class="t"><span class="ab evm">ETC</span><span class="nm">נותר להשלמה</span><span class="en">Estimate to Complete</span></div><span class="f">EAC − AC</span><p>כמה עוד צפוי לעלות מהיום ועד הסיום.</p><div class="pv">בפרויקט: <b>₪2,382K</b></div></div>
+        <div class="term"><div class="t"><span class="ab evm">VAC</span><span class="nm">סטייה בסיום</span><span class="en">Variance at Completion</span></div><span class="f">BAC − EAC</span><p>רווח/הפסד צפוי מול התקציב בסיום הפרויקט.</p><div class="pv">בפרויקט: <b>+38</b> → חיסכון צפוי</div></div>
+      </div>
+
+      <div class="glos-sub">לוח זמנים ותכנון</div>
+      <div class="glos">
+        <div class="term"><div class="t"><span class="ab sch">S-Curve</span><span class="nm">עקומת S</span></div><p>גרף ההתקדמות המצטברת לאורך זמן; משווה מתוכנן מול בפועל. הפער בין הקווים = פיגור או הקדמה.</p></div>
+        <div class="term"><div class="t"><span class="ab sch">CP</span><span class="nm">נתיב קריטי</span><span class="en">Critical Path</span></div><p>שרשרת המשימות שקובעת את תאריך הסיום; עיכוב בהן מעכב את כל הפרויקט.</p><div class="pv">כאן: <b>נעיצות → קונסטרוקציה</b></div></div>
+        <div class="term"><div class="t"><span class="ab sch">◆</span><span class="nm">אבן דרך</span><span class="en">Milestone</span></div><p>נקודת בדיקה או מסירה מרכזית בלו"ז (מעוין בגאנט).</p></div>
+        <div class="term"><div class="t"><span class="ab sch">%</span><span class="nm">אחוז התקדמות</span><span class="en">Progress</span></div><p>חלק העבודה שהושלם, נמדד לפי ערך/כמות.</p><div class="pv">בפרויקט: <b>40%</b> בפועל מול 46% מתוכנן</div></div>
+      </div>
+
+      <div class="glos-sub">עלות וכספים</div>
+      <div class="glos">
+        <div class="term"><div class="t"><span class="ab fin">מחויב</span><span class="nm">התחייבות</span><span class="en">Committed</span></div><p>עלויות שכבר הוזמנו/התחייבנו אליהן (הזמנות רכש), גם אם טרם שולמו.</p></div>
+        <div class="term"><div class="t"><span class="ab fin">הון חוזר</span><span class="nm">הון חוזר</span><span class="en">Working Capital</span></div><p>המזומן הדרוש כדי לגשר על הפער בין ההוצאה לגבייה.</p><div class="pv">שיא נדרש ≈ <b>₪1.3M</b></div></div>
+        <div class="term"><div class="t"><span class="ab fin">שוטף+60</span><span class="nm">תנאי תשלום</span><span class="en">Net 60 EOM</span></div><p>תשלום 60 יום מתום החודש שבו הוגשה החשבונית.</p></div>
+        <div class="term"><div class="t"><span class="ab fin">מקדמה</span><span class="nm">מקדמה</span><span class="en">Advance</span></div><p>תשלום מראש בתחילת הפרויקט — מקטין את ההון החוזר הדרוש.</p></div>
+        <div class="term"><div class="t"><span class="ab fin">תזרים</span><span class="nm">תזרים מצטבר</span><span class="en">Cumulative Cash Flow</span></div><p>סכום כל ההכנסות פחות ההוצאות עד נקודת זמן.</p></div>
+        <div class="term"><div class="t"><span class="ab fin">רווח</span><span class="nm">רווח גולמי</span><span class="en">Gross Margin</span></div><span class="f">הכנסות − עלויות ישירות</span><p>הרווח לפני תקורה ומימון.</p><div class="pv">צפוי <b>₪896K (18.5%)</b></div></div>
+        <div class="term"><div class="t"><span class="ab fin">רג'י</span><span class="nm">רג'י / יומית</span><span class="en">Regie</span></div><p>עבודה לפי יומית (כלי/עובד) ולא לפי כמות — לפי מחירון.</p></div>
+        <div class="term"><div class="t"><span class="ab fin">CO</span><span class="nm">שינוי / חריג</span><span class="en">Change Order</span></div><p>שינוי בהיקף העבודה עם השפעת עלות, הדורש אישור מהמזמין.</p><div class="pv">בפרויקט: <b>2 פתוחים · ₪+45K</b></div></div>
+      </div>
+
+      <div class="glos-sub">איכות ובטיחות</div>
+      <div class="glos">
+        <div class="term"><div class="t"><span class="ab qa">NCR</span><span class="nm">אי-התאמה</span><span class="en">Non-Conformance Report</span></div><p>דיווח על חריגה מהמפרט/איכות שדורשת תיקון.</p><div class="pv">בפרויקט: <b>1 פתוחה</b></div></div>
+        <div class="term"><div class="t"><span class="ab qa">%שבר</span><span class="nm">שבירת פאנלים</span><span class="en">Breakage</span></div><p>אחוז הפאנלים שנשברו בהתקנה; תקרה מקובלת בחוזה 0.5%.</p><div class="pv">בפרויקט: <b>0.3%</b></div></div>
+        <div class="term"><div class="t"><span class="ab qa">בטיחות</span><span class="nm">ימים ללא תאונה</span><span class="en">Safety Days</span></div><p>מדד בטיחות — רצף ימים ללא תאונת עבודה.</p><div class="pv">בפרויקט: <b>47</b></div></div>
+      </div>
+
     </div>
   </section>
 
