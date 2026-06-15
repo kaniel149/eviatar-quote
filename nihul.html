@@ -6,19 +6,26 @@
 <title>ניהול פרויקט — מישור רותם · תכנון מול ביצוע</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;700;900&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#080c16;--panel:rgba(255,255,255,.04);--brd:rgba(255,255,255,.09);
-    --ink:#eef2f9;--muted:#8b96ad;
-    --gold:#f0b429;--teal:#2dd4bf;--blue:#8fb6ff;--red:#ff6b6b;--green:#34e0a1;
+    --bg:#1e2823; --bg2:#26332c;
+    --panel:rgba(255,255,255,.045); --brd:rgba(255,255,255,.10);
+    --ink:#f4f1e9; --muted:#9caea1;
+    --gold:#e3a93a; --gold2:#c98a1e;
+    --teal:#5bb5a2; --teal2:#3d8d7e;
+    --sun1:#ffe05d; --sun2:#ff9a3d; --sun3:#e8497f;
+    --lky:#e8497f;
+    --blue:#5bb5a2;     /* remap old blue (plan) -> teal */
+    --red:#ff6b6b;
+    --green:#4cc38a;    /* positive financials */
     --line:rgba(255,255,255,.07);
   }
   *{margin:0;padding:0;box-sizing:border-box}
   body{font-family:'Heebo',sans-serif;color:var(--ink);
     background:
-      radial-gradient(1100px 600px at 90% -10%, rgba(240,180,41,.10), transparent 58%),
-      radial-gradient(1000px 600px at -8% 108%, rgba(45,212,191,.09), transparent 55%),
+      radial-gradient(1100px 600px at 90% -10%, rgba(232,73,127,.10), transparent 58%),
+      radial-gradient(1000px 600px at -8% 108%, rgba(227,169,58,.10), transparent 55%),
       var(--bg);
     line-height:1.5;padding-bottom:60px}
   .wrap{max-width:1080px;margin:0 auto;padding:clamp(20px,4vw,44px)}
@@ -30,6 +37,15 @@
     text-transform:uppercase;color:var(--gold);margin-bottom:10px}
   .kicker::before{content:"";width:22px;height:2px;background:linear-gradient(90deg,var(--gold),transparent)}
 
+  /* brand lockup */
+  .brandlock{display:inline-flex;align-items:center;gap:11px;margin-bottom:14px}
+  .wm{font-family:'Jost',sans-serif;text-transform:uppercase;letter-spacing:.34em;font-weight:300;font-size:clamp(14px,1.8vw,18px);color:var(--ink)}
+  .wm-bustan{font-weight:600;letter-spacing:.1em;color:#fff;text-transform:none;font-size:clamp(16px,2vw,20px)}
+  .bx{color:var(--muted);font-weight:300;font-size:16px}
+  .mk-sun{width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 50% 38%,var(--sun1),var(--sun2) 55%,var(--sun3));box-shadow:0 0 18px rgba(232,73,127,.4)}
+  .mk-orb{position:relative;width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 38% 36%,#f4cd76,var(--gold) 60%,var(--gold2))}
+  .mk-orb::after{content:"";position:absolute;inset:-30% -12%;border:2px solid var(--teal);border-radius:50%;transform:rotate(-22deg);opacity:.9}
+
   /* header */
   header{margin-bottom:26px}
   .crumbs{font-size:13px;color:var(--muted);margin-bottom:14px}
@@ -38,7 +54,7 @@
   .kpi{background:var(--panel);border:1px solid var(--brd);border-radius:16px;padding:16px 18px;backdrop-filter:blur(12px)}
   .kpi .l{font-size:12.5px;color:var(--muted);font-weight:600}
   .kpi .v{font-size:clamp(20px,2.6vw,28px);font-weight:900;margin-top:6px;font-variant-numeric:tabular-nums}
-  .kpi .v.t{color:var(--teal)}.kpi .v.g{color:var(--gold)}.kpi .v.r{color:var(--red)}.kpi .v.gr{color:var(--green)}
+  .kpi .v.t{color:var(--sun2)}.kpi .v.g{color:var(--gold)}.kpi .v.r{color:var(--red)}.kpi .v.gr{color:var(--green)}
 
   section{margin-top:40px}
   .card{background:var(--panel);border:1px solid var(--brd);border-radius:18px;padding:22px;backdrop-filter:blur(12px)}
@@ -55,10 +71,10 @@
       repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, transparent 1px calc(100%/18));
     background-color:rgba(255,255,255,.02)}
   .bar{position:absolute;border-radius:7px;height:11px}
-  .bar.plan{top:3px;background:rgba(143,182,255,.35);border:1px solid rgba(143,182,255,.5)}
-  .bar.act{bottom:3px;background:linear-gradient(90deg,var(--teal2,#119e8c),var(--teal))}
-  .bar.act.late{background:linear-gradient(90deg,#c98a14,var(--gold))}
-  .pct{position:absolute;top:50%;transform:translateY(-50%);font-size:10.5px;font-weight:800;color:#04121a;
+  .bar.plan{top:3px;background:rgba(91,181,162,.30);border:1px solid rgba(91,181,162,.5)}
+  .bar.act{bottom:3px;background:linear-gradient(90deg,var(--sun2),var(--sun3))}
+  .bar.act.late{background:linear-gradient(90deg,var(--gold2),var(--gold))}
+  .pct{position:absolute;top:50%;transform:translateY(-50%);font-size:10.5px;font-weight:800;color:#1a140a;
     padding:0 5px;line-height:1}
   .today{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--red);z-index:5}
   .today::after{content:"שבוע 8";position:absolute;top:-18px;right:-16px;font-size:10px;color:var(--red);white-space:nowrap;font-weight:700}
@@ -73,9 +89,9 @@
   th{text-align:right;color:var(--muted);font-weight:700;font-size:12px;padding:9px 10px;border-bottom:1px solid var(--line)}
   td{padding:10px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
   tr:last-child td{border-bottom:none}
-  .ok{color:var(--green);font-weight:700}.warn{color:var(--gold);font-weight:700}.bad{color:var(--red);font-weight:700}
+  .ok{color:#4cc38a;font-weight:700}.warn{color:var(--gold);font-weight:700}.bad{color:var(--red);font-weight:700}
   .mini{height:7px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden;min-width:60px}
-  .mini i{display:block;height:100%;background:linear-gradient(90deg,var(--teal2,#119e8c),var(--teal))}
+  .mini i{display:block;height:100%;background:linear-gradient(90deg,var(--sun2),var(--sun3))}
 
   ul.clean{list-style:none;display:flex;flex-direction:column;gap:9px;margin-top:8px}
   ul.clean li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px}
@@ -84,23 +100,23 @@
   ul.clean.red li::before{background:var(--red)}
 
   .pill{display:inline-block;font-size:12px;font-weight:800;padding:4px 11px;border-radius:8px}
-  .pill.g{background:rgba(240,180,41,.16);color:var(--gold)}
-  .pill.t{background:rgba(45,212,191,.16);color:var(--teal)}
+  .pill.g{background:rgba(227,169,58,.18);color:var(--gold)}
+  .pill.t{background:rgba(232,73,127,.16);color:var(--lky)}
 
   /* cashflow chart */
   .cf{position:relative;height:240px;margin-top:18px;display:grid;grid-template-columns:repeat(6,1fr);gap:18px;align-items:stretch}
   .cfcol{position:relative}
   .cfbar{position:absolute;left:15%;right:15%;border-radius:6px}
   .cfbar.neg{background:linear-gradient(180deg,#ff8a8a,var(--red))}
-  .cfbar.pos{background:linear-gradient(180deg,var(--green),#1f9e6e)}
+  .cfbar.pos{background:linear-gradient(180deg,#4cc38a,#2e9660)}
   .baseline{position:absolute;left:0;right:0;top:96px;height:1px;background:rgba(255,255,255,.25);z-index:2}
   .cfval{position:absolute;left:0;right:0;text-align:center;font-size:11px;font-weight:800;font-variant-numeric:tabular-nums}
   .cfx{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;margin-top:8px;font-size:11.5px;color:var(--muted);text-align:center}
   .callout{margin-top:16px;padding:14px 18px;border-radius:14px;background:rgba(255,107,107,.08);
     border:1px solid rgba(255,107,107,.22);font-size:14px;color:#ffd2d2}
 
-  .note{margin-top:14px;padding:13px 17px;border-radius:13px;background:rgba(143,182,255,.08);
-    border:1px solid rgba(143,182,255,.2);font-size:13.5px;color:#d8e4ff}
+  .note{margin-top:14px;padding:13px 17px;border-radius:13px;background:rgba(91,181,162,.08);
+    border:1px solid rgba(91,181,162,.22);font-size:13.5px;color:#c8e8e3}
   .foot{margin-top:48px;text-align:center;color:var(--muted);font-size:12px}
 
   @media(max-width:760px){
@@ -113,6 +129,7 @@
 <div class="wrap">
 
   <header>
+    <div class="brandlock"><span class="mk-sun"></span><span class="wm">LKY</span><span class="bx">×</span><span class="wm wm-bustan">Bustan</span><span class="mk-orb"></span></div>
     <div class="crumbs">בוסטן × אביתר · <a href="shutafut.html">מסגרת המיזוג</a> · <a href="./">תמחור</a></div>
     <div class="kicker">דוגמה · ניהול פרויקט</div>
     <h1>מישור רותם 17MW — תכנון מול ביצוע</h1>
@@ -177,9 +194,9 @@
         </div></div>
       </div>
       <div class="legend">
-        <span><i class="sw" style="background:rgba(143,182,255,.4)"></i> מתוכנן</span>
-        <span><i class="sw" style="background:var(--teal)"></i> בוצע בזמן</span>
-        <span><i class="sw" style="background:var(--gold)"></i> בוצע באיחור</span>
+        <span><i class="sw" style="background:rgba(91,181,162,.4)"></i> מתוכנן</span>
+        <span><i class="sw" style="background:linear-gradient(90deg,var(--sun2),var(--sun3))"></i> בוצע בזמן</span>
+        <span><i class="sw" style="background:linear-gradient(90deg,var(--gold2),var(--gold))"></i> בוצע באיחור</span>
         <span><i class="sw" style="background:var(--red);width:3px"></i> השבוע</span>
       </div>
     </div>
@@ -269,7 +286,7 @@
         <tr><td>עלות מתוכננת</td><td>4,000,000</td><td class="muted">שכר · קבלני משנה · חומרים · כלים</td></tr>
         <tr><td><b>רווח יעד</b></td><td class="ok"><b>857,934</b></td><td><b>17.7%</b></td></tr>
         <tr><td colspan="3" style="padding-top:16px;color:var(--muted);font-weight:700">— מצב נוכחי (סוף שבוע 7) —</td></tr>
-        <tr><td>ערך מבוצע</td><td class="t" style="color:var(--teal)">1,922,000</td><td class="muted">~40% מהחוזה</td></tr>
+        <tr><td>ערך מבוצע</td><td class="t" style="color:var(--sun2)">1,922,000</td><td class="muted">~40% מהחוזה</td></tr>
         <tr><td>עלות בפועל</td><td>1,580,000</td><td class="muted"></td></tr>
         <tr><td><b>רווח גולמי עד כה</b></td><td class="ok"><b>342,000</b></td><td><b>17.8%</b> <span class="ok">✓ ביעד</span></td></tr>
       </table>

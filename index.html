@@ -6,18 +6,19 @@
 <title>תמחור אביתר · מישור רותם 17MW</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;700;900&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0a0e14;
-    --bg2:#0f141d;
-    --panel:rgba(255,255,255,.04);
-    --panel-brd:rgba(255,255,255,.09);
-    --ink:#eef2f7;
-    --muted:#8b96a7;
-    --amber:#ffb627;
-    --amber2:#ff8a00;
-    --green:#3ddc97;
+    --bg:#1e2823; --bg2:#26332c;
+    --panel:rgba(255,255,255,.045); --panel-brd:rgba(255,255,255,.10);
+    --ink:#f4f1e9; --muted:#9caea1;
+    --gold:#e3a93a; --gold2:#c98a1e;
+    --teal:#5bb5a2; --teal2:#3d8d7e;
+    --sun1:#ffe05d; --sun2:#ff9a3d; --sun3:#e8497f;
+    --lky:#e8497f;
+    --amber:#e3a93a;   /* remap → gold */
+    --amber2:#c98a1e;
+    --green:#5bb5a2;   /* remap → teal */
     --red:#ff6b6b;
     --line:rgba(255,255,255,.07);
   }
@@ -26,8 +27,8 @@
   body{
     font-family:'Heebo',sans-serif;
     background:
-      radial-gradient(1200px 600px at 85% -10%, rgba(255,182,39,.10), transparent 60%),
-      radial-gradient(900px 600px at -10% 110%, rgba(61,220,151,.07), transparent 55%),
+      radial-gradient(1100px 600px at 88% -8%, rgba(232,73,127,.12), transparent 58%),
+      radial-gradient(1000px 600px at -8% 108%, rgba(227,169,58,.11), transparent 55%),
       var(--bg);
     color:var(--ink);
     overflow:hidden;
@@ -72,7 +73,7 @@
   .chip b{color:var(--amber);font-weight:700}
   .big-num{
     font-family:'Frank Ruhl Libre',serif;font-weight:900;
-    background:linear-gradient(120deg,#fff,var(--amber) 70%,var(--amber2));
+    background:linear-gradient(120deg,#fff,var(--sun1) 40%,var(--sun3));
     -webkit-background-clip:text;background-clip:text;color:transparent;
   }
 
@@ -99,9 +100,9 @@
   .tbl tr:last-child td{border-bottom:none}
   .tbl .num{font-variant-numeric:tabular-nums;color:var(--ink);font-weight:500;white-space:nowrap}
   .tbl .tot{font-weight:900;color:var(--amber);font-variant-numeric:tabular-nums;white-space:nowrap}
-  .tbl tr.sum td{background:rgba(255,182,39,.07);font-weight:900}
+  .tbl tr.sum td{background:rgba(227,169,58,.07);font-weight:900}
   .tag{font-size:11px;font-weight:700;padding:3px 9px;border-radius:7px;white-space:nowrap}
-  .tag.lky{background:rgba(61,220,151,.14);color:var(--green)}
+  .tag.lky{background:rgba(91,181,162,.14);color:var(--teal)}
   .tag.nx{background:rgba(120,170,255,.14);color:#8fb6ff}
   .tag.open{background:rgba(255,107,107,.14);color:var(--red)}
   .domain{display:inline-block;font-weight:900;color:var(--amber);font-size:13px;letter-spacing:.04em}
@@ -111,14 +112,14 @@
   .bar-row{display:grid;grid-template-columns:170px 1fr auto;align-items:center;gap:14px}
   .bar-row .name{font-weight:500}
   .bar-track{height:26px;background:rgba(255,255,255,.05);border-radius:8px;overflow:hidden}
-  .bar-fill{height:100%;border-radius:8px;background:linear-gradient(90deg,var(--amber2),var(--amber));
+  .bar-fill{height:100%;border-radius:8px;background:linear-gradient(90deg,var(--gold2),var(--gold));
     transform-origin:right;animation:grow 1s .2s both cubic-bezier(.2,.8,.2,1)}
   @keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
   .bar-row .v{font-weight:900;font-variant-numeric:tabular-nums;color:var(--ink)}
 
   .note{
     margin-top:18px;padding:14px 18px;border-radius:14px;
-    background:rgba(255,182,39,.07);border:1px solid rgba(255,182,39,.18);
+    background:rgba(227,169,58,.07);border:1px solid rgba(227,169,58,.18);
     font-size:14px;color:#ffe6b0;line-height:1.6
   }
   .note.r{background:rgba(255,107,107,.07);border-color:rgba(255,107,107,.2);color:#ffd0d0}
@@ -131,14 +132,14 @@
 
   /* chrome */
   .topbar{position:fixed;top:0;left:0;right:0;height:4px;background:rgba(255,255,255,.06);z-index:50}
-  .progress{height:100%;background:linear-gradient(90deg,var(--amber),var(--amber2));width:0;transition:width .4s}
+  .progress{height:100%;background:linear-gradient(90deg,var(--gold),var(--sun3));width:0;transition:width .4s}
   .nav{position:fixed;bottom:22px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:16px;z-index:50}
   .nav button{
     width:46px;height:46px;border-radius:50%;border:1px solid var(--panel-brd);
     background:var(--panel);color:var(--ink);font-size:20px;cursor:pointer;backdrop-filter:blur(10px);
     display:flex;align-items:center;justify-content:center;transition:.2s
   }
-  .nav button:hover{background:rgba(255,182,39,.18);border-color:var(--amber);transform:translateY(-2px)}
+  .nav button:hover{background:rgba(227,169,58,.18);border-color:var(--gold);transform:translateY(-2px)}
   .counter{font-variant-numeric:tabular-nums;font-weight:700;color:var(--muted);font-size:14px;min-width:52px;text-align:center}
   .dots{position:fixed;top:50%;left:20px;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:50}
   .dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;transition:.25s}
@@ -153,6 +154,15 @@
     .hide-m{display:none}
     .tbl th:nth-child(3),.tbl td:nth-child(3){display:none}
   }
+
+  /* ── Brand Lockup ── */
+  .brandlock{display:inline-flex;align-items:center;gap:11px;margin-bottom:22px}
+  .wm{font-family:'Jost',sans-serif;text-transform:uppercase;letter-spacing:.34em;font-weight:300;font-size:clamp(15px,2vw,20px);color:var(--ink)}
+  .wm-bustan{font-weight:600;letter-spacing:.1em;color:#fff;text-transform:none;font-size:clamp(17px,2.2vw,22px)}
+  .bx{color:var(--muted);font-weight:300;font-size:18px}
+  .mk-sun{width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 50% 38%,var(--sun1),var(--sun2) 55%,var(--sun3));box-shadow:0 0 22px rgba(232,73,127,.4)}
+  .mk-orb{position:relative;width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 38% 36%,#f4cd76,var(--gold) 60%,var(--gold2))}
+  .mk-orb::after{content:"";position:absolute;inset:-30% -12%;border:2px solid var(--teal);border-radius:50%;transform:rotate(-22deg);opacity:.9}
 </style>
 </head>
 <body>
@@ -164,6 +174,7 @@
   <!-- 1 COVER -->
   <section class="slide">
     <div class="watermark reveal">ל.ק.י · הצעת מחיר</div>
+    <div class="brandlock reveal"><span class="mk-sun"></span><span class="wm">LKY</span><span class="bx">×</span><span class="wm wm-bustan">Bustan</span><span class="mk-orb"></span></div>
     <div class="kicker reveal">כתב כמויות ותמחור · 15.06.2026</div>
     <h1 class="reveal">אתר מישור רותם<br><span class="big-num">17MW</span> + אגירה</h1>
     <p class="sub reveal">הצעת מחיר של ל.ק.י לעבודות הקמה בשדה סולארי — מול נקסטקום / אנרג'יקס. סקירה מסודרת של כל סעיפי העבודה, הכמויות, המחירים והפריטים הפתוחים.</p>
