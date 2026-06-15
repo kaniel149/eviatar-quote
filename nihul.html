@@ -3,190 +3,293 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ניהול פרויקט — מישור רותם · תכנון מול ביצוע</title>
+<title>ניהול פרויקט · מישור רותם 17MW — תכנון מול ביצוע</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;700;900&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#1e2823; --bg2:#26332c;
-    --panel:rgba(255,255,255,.045); --brd:rgba(255,255,255,.10);
-    --ink:#f4f1e9; --muted:#9caea1;
-    --gold:#e3a93a; --gold2:#c98a1e;
-    --teal:#5bb5a2; --teal2:#3d8d7e;
-    --sun1:#ffe05d; --sun2:#ff9a3d; --sun3:#e8497f;
-    --lky:#e8497f;
-    --blue:#5bb5a2;     /* remap old blue (plan) -> teal */
-    --red:#ff6b6b;
-    --green:#4cc38a;    /* positive financials */
-    --line:rgba(255,255,255,.07);
+    --bg:#1b251f;--bg2:#222e27;
+    --panel:rgba(255,255,255,.05);--panel-2:rgba(255,255,255,.03);--brd:rgba(255,255,255,.11);
+    --ink:#f5f2ea;--ink-dim:#cfd6cd;--muted:#93a398;
+    --gold:#e3a93a;--gold2:#c98a1e;
+    --teal:#5fbfa9;--teal2:#3d8d7e;
+    --sun1:#ffe06a;--sun2:#ff9f43;--sun3:#ec4f86;--lky:#ec4f86;
+    --red:#ff6b6b;--green:#4cc38a;
+    --line:rgba(255,255,255,.08);--radius:18px;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'Heebo',sans-serif;color:var(--ink);
+  html{scroll-behavior:smooth}
+  body{font-family:'Heebo',sans-serif;color:var(--ink);line-height:1.5;position:relative;
     background:
-      radial-gradient(1100px 600px at 90% -10%, rgba(232,73,127,.10), transparent 58%),
-      radial-gradient(1000px 600px at -8% 108%, rgba(227,169,58,.10), transparent 55%),
+      radial-gradient(1100px 600px at 92% -10%, rgba(236,79,134,.11), transparent 56%),
+      radial-gradient(1000px 600px at -8% 108%, rgba(227,169,58,.10), transparent 54%),
       var(--bg);
-    line-height:1.5;padding-bottom:60px}
-  .wrap{max-width:1080px;margin:0 auto;padding:clamp(20px,4vw,44px)}
-  h1{font-size:clamp(26px,4.5vw,42px);font-weight:900;letter-spacing:-.02em}
-  h2{font-size:clamp(20px,2.6vw,28px);font-weight:900;margin-bottom:4px}
-  .display{font-family:'Frank Ruhl Libre',serif}
-  .muted{color:var(--muted)}
-  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.12em;
-    text-transform:uppercase;color:var(--gold);margin-bottom:10px}
-  .kicker::before{content:"";width:22px;height:2px;background:linear-gradient(90deg,var(--gold),transparent)}
+    padding-bottom:10px}
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E")}
+  .wrap{position:relative;z-index:1;max-width:1140px;margin:0 auto;padding:clamp(20px,4vw,46px)}
 
-  /* brand lockup */
+  /* brand marks */
+  .mk-sun{border-radius:50%;background:linear-gradient(180deg,#ffe06a 0%,#ffb24d 46%,#ec4f86 100%);
+    box-shadow:0 0 18px rgba(236,79,134,.45), inset 0 -3px 7px rgba(150,20,70,.32)}
+  .mk-orb{position:relative;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f6d488,#e3a93a 60%,#b07f1c);
+    box-shadow:inset 0 -3px 7px rgba(80,52,4,.45)}
+  .mk-orb::after{content:"";position:absolute;inset:-32% -14%;border:2px solid var(--teal);border-radius:50%;
+    transform:rotate(-24deg);opacity:.92;box-shadow:0 0 7px rgba(95,191,169,.35)}
   .brandlock{display:inline-flex;align-items:center;gap:11px;margin-bottom:14px}
-  .wm{font-family:'Jost',sans-serif;text-transform:uppercase;letter-spacing:.34em;font-weight:300;font-size:clamp(14px,1.8vw,18px);color:var(--ink)}
-  .wm-bustan{font-weight:600;letter-spacing:.1em;color:#fff;text-transform:none;font-size:clamp(16px,2vw,20px)}
-  .bx{color:var(--muted);font-weight:300;font-size:16px}
-  .mk-sun{width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 50% 38%,var(--sun1),var(--sun2) 55%,var(--sun3));box-shadow:0 0 18px rgba(232,73,127,.4)}
-  .mk-orb{position:relative;width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 38% 36%,#f4cd76,var(--gold) 60%,var(--gold2))}
-  .mk-orb::after{content:"";position:absolute;inset:-30% -12%;border:2px solid var(--teal);border-radius:50%;transform:rotate(-22deg);opacity:.9}
+  .brandlock a{display:inline-flex;align-items:center;gap:11px;text-decoration:none;color:inherit}
+  .wm{font-family:'Jost',sans-serif;text-transform:uppercase;letter-spacing:.36em;font-weight:300;font-size:clamp(13px,1.7vw,17px);color:var(--ink)}
+  .wm-bustan{font-weight:600;letter-spacing:.07em;color:#fff;text-transform:none;font-size:clamp(15px,1.9vw,19px)}
+  .bx{color:var(--muted);font-weight:300;font-size:15px}
+  .lk-sun{width:24px;height:24px}.lk-orb{width:24px;height:24px}
 
   /* header */
-  header{margin-bottom:26px}
+  header{margin-bottom:30px}
   .crumbs{font-size:13px;color:var(--muted);margin-bottom:14px}
   .crumbs a{color:var(--teal);text-decoration:none}
-  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px}
-  .kpi{background:var(--panel);border:1px solid var(--brd);border-radius:16px;padding:16px 18px;backdrop-filter:blur(12px)}
-  .kpi .l{font-size:12.5px;color:var(--muted);font-weight:600}
-  .kpi .v{font-size:clamp(20px,2.6vw,28px);font-weight:900;margin-top:6px;font-variant-numeric:tabular-nums}
-  .kpi .v.t{color:var(--sun2)}.kpi .v.g{color:var(--gold)}.kpi .v.r{color:var(--red)}.kpi .v.gr{color:var(--green)}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:'Jost',sans-serif;font-size:11.5px;
+    font-weight:500;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+  .eyebrow::before{content:"";width:22px;height:2px;background:linear-gradient(90deg,var(--gold),transparent)}
+  h1{font-size:clamp(25px,4.2vw,40px);font-weight:900;letter-spacing:-.02em}
+  h2{font-size:clamp(19px,2.5vw,26px);font-weight:900;letter-spacing:-.01em}
+  .muted{color:var(--muted)}
+  .sub{color:var(--muted);font-size:13.5px;margin-top:8px}
 
-  section{margin-top:40px}
-  .card{background:var(--panel);border:1px solid var(--brd);border-radius:18px;padding:22px;backdrop-filter:blur(12px)}
+  /* status banner */
+  .banner{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin-top:18px;
+    background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+    border:1px solid var(--brd);border-radius:14px;padding:14px 18px;font-size:13.5px}
+  .banner .seg{display:inline-flex;align-items:center;gap:8px}
+  .banner b{font-weight:800}
+  .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+  .dot.g{background:var(--green)}.dot.y{background:var(--gold)}.dot.r{background:var(--red)}
+
+  .kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:18px}
+  .kpi{background:var(--panel);border:1px solid var(--brd);border-radius:14px;padding:14px 15px;
+    transition:transform .25s ease,border-color .25s ease}
+  .kpi:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.22)}
+  .kpi .l{font-size:11.5px;color:var(--muted);font-weight:600;line-height:1.3}
+  .kpi .v{font-size:clamp(18px,2.3vw,25px);font-weight:900;margin-top:6px;font-variant-numeric:tabular-nums}
+  .kpi .d{font-size:11px;margin-top:3px;font-weight:600}
+  .v.g{color:var(--gold)}.v.t{color:var(--sun2)}.v.tl{color:var(--teal)}.v.r{color:var(--red)}.v.gr{color:var(--green)}
+  .up{color:var(--green)}.down{color:var(--red)}
+
+  section{margin-top:42px}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+  .card{background:var(--panel);border:1px solid var(--brd);border-radius:var(--radius);padding:22px;backdrop-filter:blur(12px)}
   .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 
-  /* GANTT */
-  .gantt{margin-top:18px;overflow-x:auto}
-  .gantt-inner{min-width:680px}
-  .grow{display:grid;grid-template-columns:170px 1fr;align-items:center;gap:14px;padding:7px 0}
-  .gname{font-size:14px;font-weight:600}
-  .gname small{display:block;color:var(--muted);font-weight:400;font-size:12px}
-  .track{position:relative;height:30px;border-radius:8px;
-    background:
-      repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, transparent 1px calc(100%/18));
-    background-color:rgba(255,255,255,.02)}
-  .bar{position:absolute;border-radius:7px;height:11px}
-  .bar.plan{top:3px;background:rgba(91,181,162,.30);border:1px solid rgba(91,181,162,.5)}
-  .bar.act{bottom:3px;background:linear-gradient(90deg,var(--sun2),var(--sun3))}
-  .bar.act.late{background:linear-gradient(90deg,var(--gold2),var(--gold))}
-  .pct{position:absolute;top:50%;transform:translateY(-50%);font-size:10.5px;font-weight:800;color:#1a140a;
-    padding:0 5px;line-height:1}
-  .today{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--red);z-index:5}
-  .today::after{content:"שבוע 8";position:absolute;top:-18px;right:-16px;font-size:10px;color:var(--red);white-space:nowrap;font-weight:700}
-  .axis{display:grid;grid-template-columns:170px 1fr;gap:14px;margin-top:6px}
-  .weeks{display:grid;grid-template-columns:repeat(18,1fr);font-size:10px;color:var(--muted);text-align:center}
-  .legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-size:12.5px;color:var(--muted)}
+  /* EVM cards */
+  .evm{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .evm .e{background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:14px}
+  .evm .e .l{font-size:11.5px;color:var(--muted);font-weight:600}
+  .evm .e .l b{color:var(--ink-dim)}
+  .evm .e .v{font-size:20px;font-weight:900;margin-top:5px;font-variant-numeric:tabular-nums}
+
+  /* svg chart */
+  .chart svg{width:100%;height:auto;display:block}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;font-size:12.5px;color:var(--muted)}
   .legend span{display:inline-flex;align-items:center;gap:7px}
   .sw{width:16px;height:9px;border-radius:3px;display:inline-block}
+  .swl{width:16px;height:3px;border-radius:3px;display:inline-block}
+
+  /* gantt */
+  .gantt{overflow-x:auto}
+  .gantt-inner{min-width:760px}
+  .months{display:grid;grid-template-columns:180px 1fr;gap:14px;margin-bottom:4px}
+  .mrow{display:grid;grid-template-columns:repeat(5,1fr);font-size:10.5px;color:var(--muted);text-align:center}
+  .mrow span{border-right:1px solid var(--line);padding-bottom:4px}
+  .grow{display:grid;grid-template-columns:180px 1fr;align-items:center;gap:14px;padding:6px 0}
+  .gname{font-size:13.5px;font-weight:600}
+  .gname small{display:block;color:var(--muted);font-weight:400;font-size:11.5px}
+  .track{position:relative;height:28px;border-radius:8px;background-color:rgba(255,255,255,.02);
+    background-image:repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, transparent 1px calc(100%/18))}
+  .bar{position:absolute;border-radius:6px;height:10px}
+  .bar.plan{top:3px;background:rgba(95,191,169,.3);border:1px solid rgba(95,191,169,.5)}
+  .bar.act{bottom:3px;background:linear-gradient(90deg,var(--sun2),var(--sun3))}
+  .bar.act.late{background:linear-gradient(90deg,var(--gold2),var(--gold))}
+  .bar.crit{box-shadow:0 0 0 1px rgba(255,107,107,.5)}
+  .pct{position:absolute;top:50%;transform:translateY(-50%);font-size:10px;font-weight:800;color:#1a140a;padding:0 5px;line-height:1}
+  .today{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--red);z-index:6}
+  .today::after{content:"שבוע 8";position:absolute;top:-17px;right:-16px;font-size:9.5px;color:var(--red);white-space:nowrap;font-weight:700}
+  .ms-row{display:grid;grid-template-columns:180px 1fr;gap:14px;margin-top:6px}
+  .ms-track{position:relative;height:26px}
+  .ms{position:absolute;top:2px;transform:translateX(50%);text-align:center}
+  .ms i{display:block;width:12px;height:12px;background:var(--gold);transform:rotate(45deg);margin:0 auto;border:1px solid #fff3;box-shadow:0 0 8px rgba(227,169,58,.5)}
+  .ms i.done{background:var(--green)}
+  .ms small{display:block;font-size:9px;color:var(--muted);margin-top:5px;white-space:nowrap}
+  .axis{display:grid;grid-template-columns:180px 1fr;gap:14px;margin-top:4px}
+  .weeks{display:grid;grid-template-columns:repeat(18,1fr);font-size:9.5px;color:var(--muted);text-align:center}
 
   /* tables */
-  table{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}
-  th{text-align:right;color:var(--muted);font-weight:700;font-size:12px;padding:9px 10px;border-bottom:1px solid var(--line)}
-  td{padding:10px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:4px}
+  th{text-align:right;color:var(--muted);font-weight:700;font-size:11.5px;padding:9px 9px;border-bottom:1px solid var(--line)}
+  td{padding:9px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
   tr:last-child td{border-bottom:none}
-  .ok{color:#4cc38a;font-weight:700}.warn{color:var(--gold);font-weight:700}.bad{color:var(--red);font-weight:700}
-  .mini{height:7px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden;min-width:60px}
+  tr.tot td{font-weight:900;background:rgba(255,255,255,.03)}
+  .ok{color:var(--green);font-weight:700}.warn{color:var(--gold);font-weight:700}.bad{color:var(--red);font-weight:700}
+  .mini{height:7px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden;min-width:64px}
   .mini i{display:block;height:100%;background:linear-gradient(90deg,var(--sun2),var(--sun3))}
+  .mini i.g{background:linear-gradient(90deg,var(--teal2),var(--teal))}
 
-  ul.clean{list-style:none;display:flex;flex-direction:column;gap:9px;margin-top:8px}
-  ul.clean li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px}
+  ul.clean{list-style:none;display:flex;flex-direction:column;gap:9px;margin-top:6px}
+  ul.clean li{display:flex;gap:10px;align-items:flex-start;font-size:14px}
   ul.clean li::before{content:"";flex:none;width:7px;height:7px;border-radius:2px;margin-top:7px;background:var(--gold);transform:rotate(45deg)}
   ul.clean.teal li::before{background:var(--teal)}
+  ul.clean.sun li::before{background:var(--sun3)}
   ul.clean.red li::before{background:var(--red)}
 
-  .pill{display:inline-block;font-size:12px;font-weight:800;padding:4px 11px;border-radius:8px}
+  .pill{display:inline-block;font-size:11.5px;font-weight:800;padding:4px 11px;border-radius:8px}
   .pill.g{background:rgba(227,169,58,.18);color:var(--gold)}
-  .pill.t{background:rgba(232,73,127,.16);color:var(--lky)}
+  .pill.t{background:rgba(95,191,169,.16);color:var(--teal)}
+  .pill.s{background:rgba(236,79,134,.16);color:var(--lky)}
+  .tag{font-size:11px;font-weight:700;padding:3px 9px;border-radius:7px;white-space:nowrap}
+  .tag.done{background:rgba(76,195,138,.16);color:var(--green)}
+  .tag.prog{background:rgba(236,79,134,.16);color:var(--lky)}
+  .tag.wait{background:rgba(147,163,152,.18);color:var(--muted)}
 
-  /* cashflow chart */
-  .cf{position:relative;height:240px;margin-top:18px;display:grid;grid-template-columns:repeat(6,1fr);gap:18px;align-items:stretch}
+  /* cashflow */
+  .cf{position:relative;height:230px;margin-top:14px;display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
   .cfcol{position:relative}
-  .cfbar{position:absolute;left:15%;right:15%;border-radius:6px}
-  .cfbar.neg{background:linear-gradient(180deg,#ff8a8a,var(--red))}
-  .cfbar.pos{background:linear-gradient(180deg,#4cc38a,#2e9660)}
-  .baseline{position:absolute;left:0;right:0;top:96px;height:1px;background:rgba(255,255,255,.25);z-index:2}
-  .cfval{position:absolute;left:0;right:0;text-align:center;font-size:11px;font-weight:800;font-variant-numeric:tabular-nums}
-  .cfx{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;margin-top:8px;font-size:11.5px;color:var(--muted);text-align:center}
-  .callout{margin-top:16px;padding:14px 18px;border-radius:14px;background:rgba(255,107,107,.08);
-    border:1px solid rgba(255,107,107,.22);font-size:14px;color:#ffd2d2}
+  .cfbar{position:absolute;left:16%;right:16%;border-radius:6px}
+  .cfbar.neg{background:linear-gradient(180deg,#ff9a9a,var(--red))}
+  .cfbar.pos{background:linear-gradient(180deg,#5fd6a0,#2e9660)}
+  .baseline{position:absolute;left:0;right:0;top:92px;height:1px;background:rgba(255,255,255,.25);z-index:2}
+  .cfval{position:absolute;left:0;right:0;text-align:center;font-size:10.5px;font-weight:800;font-variant-numeric:tabular-nums}
+  .cfx{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-top:8px;font-size:11px;color:var(--muted);text-align:center}
 
-  .note{margin-top:14px;padding:13px 17px;border-radius:13px;background:rgba(91,181,162,.08);
-    border:1px solid rgba(91,181,162,.22);font-size:13.5px;color:#c8e8e3}
-  .foot{margin-top:48px;text-align:center;color:var(--muted);font-size:12px}
+  .callout{margin-top:14px;padding:13px 17px;border-radius:13px;background:rgba(236,79,134,.09);
+    border:1px solid rgba(236,79,134,.22);font-size:13.5px;color:#ffd9e6}
+  .note{margin-top:12px;padding:12px 16px;border-radius:12px;background:rgba(95,191,169,.08);
+    border:1px solid rgba(95,191,169,.22);font-size:13px;color:#cdeae3}
 
-  @media(max-width:760px){
-    .kpis{grid-template-columns:repeat(2,1fr)}
-    .cols{grid-template-columns:1fr}
-  }
+  footer{border-top:1px solid var(--line);margin-top:54px;padding-top:22px;display:flex;justify-content:space-between;
+    align-items:center;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:12px}
+
+  @media(max-width:820px){.kpis{grid-template-columns:repeat(3,1fr)}.cols,.cols3{grid-template-columns:1fr}.evm{grid-template-columns:1fr}}
+  @media(max-width:520px){.kpis{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
 <div class="wrap">
 
+  <!-- HEADER -->
   <header>
-    <div class="brandlock"><span class="mk-sun"></span><span class="wm">LKY</span><span class="bx">×</span><span class="wm wm-bustan">Bustan</span><span class="mk-orb"></span></div>
-    <div class="crumbs">בוסטן × אביתר · <a href="shutafut.html">מסגרת המיזוג</a> · <a href="./">תמחור</a></div>
-    <div class="kicker">דוגמה · ניהול פרויקט</div>
+    <div class="brandlock"><a href="home.html"><span class="mk-sun lk-sun"></span><span class="wm">LKY</span><span class="bx">×</span><span class="wm wm-bustan">Bustan</span><span class="mk-orb lk-orb"></span></a></div>
+    <div class="crumbs"><a href="home.html">בית</a> · <a href="shutafut.html">שותפות</a> · <a href="./">תמחור</a></div>
+    <div class="eyebrow">דוגמה · בקרת פרויקט</div>
     <h1>מישור רותם 17MW — תכנון מול ביצוע</h1>
-    <p class="muted" style="margin-top:8px">שבוע 8 מתוך 18 · עדכון אחרון: סוף שבוע 7 · מטבע: ₪ (אלפים)</p>
+    <p class="sub">שבוע 8 מתוך 18 · עדכון אחרון: סוף שבוע 7 · כל הסכומים ב-₪ אלפים · שיטת ערך מוקנה (EVM)</p>
+
+    <div class="banner">
+      <span class="seg"><span class="dot y"></span> סטטוס לו"ז: <b>פיגור קל (SPI 0.87)</b></span>
+      <span class="seg"><span class="dot g"></span> סטטוס עלות: <b>בתקציב (CPI 1.01)</b></span>
+      <span class="seg"><span class="dot g"></span> בטיחות: <b>0 תאונות · 47 ימים</b></span>
+      <span class="seg"><span class="dot y"></span> 2 סיכונים פתוחים</span>
+    </div>
+
     <div class="kpis">
-      <div class="kpi"><div class="l">התקדמות (ערך מבוצע)</div><div class="v t">40%</div></div>
-      <div class="kpi"><div class="l">סטטוס לו"ז</div><div class="v g">−1 שבוע</div></div>
-      <div class="kpi"><div class="l">שפל תזרים צפוי</div><div class="v r">−₪1.3M</div></div>
-      <div class="kpi"><div class="l">רווח יעד</div><div class="v gr">17.7%</div></div>
+      <div class="kpi"><div class="l">התקדמות בפועל</div><div class="v t">40%</div><div class="d muted">מתוכנן 46%</div></div>
+      <div class="kpi"><div class="l">SPI · לוח זמנים</div><div class="v r">0.87</div><div class="d down">▼ פיגור</div></div>
+      <div class="kpi"><div class="l">CPI · עלות</div><div class="v gr">1.01</div><div class="d up">▲ בתקציב</div></div>
+      <div class="kpi"><div class="l">סטיית לו"ז</div><div class="v g">−1 שב'</div><div class="d muted">17→18 שב'</div></div>
+      <div class="kpi"><div class="l">תחזית עלות (EAC)</div><div class="v">₪3.96M</div><div class="d up">חיסכון ₪38K</div></div>
+      <div class="kpi"><div class="l">רווח צפוי</div><div class="v gr">18.5%</div><div class="d up">יעד 17.7%</div></div>
     </div>
   </header>
 
+  <!-- EVM + S-CURVE -->
+  <section>
+    <div class="sec-head"><h2>📈 ערך מוקנה ועקומת התקדמות (S-Curve)</h2></div>
+    <div class="cols">
+      <div class="card">
+        <div class="evm">
+          <div class="e"><div class="l"><b>PV</b> · ערך מתוכנן</div><div class="v">1,840</div></div>
+          <div class="e"><div class="l"><b>EV</b> · ערך מוקנה</div><div class="v" style="color:var(--sun2)">1,600</div></div>
+          <div class="e"><div class="l"><b>AC</b> · עלות בפועל</div><div class="v">1,580</div></div>
+          <div class="e"><div class="l"><b>SV</b> · סטיית לו"ז</div><div class="v bad">−240</div></div>
+          <div class="e"><div class="l"><b>CV</b> · סטיית עלות</div><div class="v ok">+20</div></div>
+          <div class="e"><div class="l"><b>EAC</b> · תחזית סיום</div><div class="v">3,962</div></div>
+        </div>
+        <div class="note">EV (1,600) מתחת ל-PV (1,840) → פיגור של ~6% בלו"ז, אך מעל AC (1,580) → העלות בשליטה. תקציב סופי (BAC) ₪4,000K.</div>
+      </div>
+      <div class="card chart">
+        <svg viewBox="0 0 620 250" role="img" aria-label="S-curve תכנון מול ביצוע">
+          <g stroke="rgba(255,255,255,.08)" stroke-width="1">
+            <line x1="50" y1="30" x2="600" y2="30"/><line x1="50" y1="77.5" x2="600" y2="77.5"/>
+            <line x1="50" y1="125" x2="600" y2="125"/><line x1="50" y1="172.5" x2="600" y2="172.5"/>
+            <line x1="50" y1="220" x2="600" y2="220"/>
+          </g>
+          <g fill="#93a398" font-size="10" font-family="Heebo">
+            <text x="44" y="33" text-anchor="end">100%</text><text x="44" y="128" text-anchor="end">50%</text><text x="44" y="223" text-anchor="end">0%</text>
+          </g>
+          <polygon points="50,216.2 82.4,208.6 114.7,197.2 147.1,182 179.4,164.9 211.8,147.8 244.1,132.6 276.5,115.5 308.8,98.4 341.2,83.2 373.5,69.9 405.9,58.5 438.2,49 470.6,42.35 502.9,37.6 535.3,33.8 567.6,31.33 600,30 600,220 50,220" fill="rgba(95,191,169,.10)"/>
+          <polyline points="50,216.2 82.4,208.6 114.7,197.2 147.1,182 179.4,164.9 211.8,147.8 244.1,132.6 276.5,115.5 308.8,98.4 341.2,83.2 373.5,69.9 405.9,58.5 438.2,49 470.6,42.35 502.9,37.6 567.6,31.33 600,30" fill="none" stroke="#5fbfa9" stroke-width="2.5"/>
+          <polyline points="50,216.2 82.4,210.5 114.7,201 147.1,185.8 179.4,170.6 211.8,155.4 244.1,144" fill="none" stroke="url(#sun)" stroke-width="3"/>
+          <circle cx="244.1" cy="144" r="4" fill="#ec4f86"/>
+          <line x1="276.5" y1="22" x2="276.5" y2="220" stroke="#ff6b6b" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <text x="276.5" y="16" text-anchor="middle" fill="#ff6b6b" font-size="9.5" font-family="Heebo">שבוע 8</text>
+          <defs><linearGradient id="sun" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff9f43"/><stop offset="1" stop-color="#ec4f86"/></linearGradient></defs>
+          <g fill="#93a398" font-size="9" font-family="Heebo" text-anchor="middle">
+            <text x="50" y="234">1</text><text x="147" y="234">4</text><text x="244" y="234">7</text><text x="341" y="234">10</text><text x="438" y="234">13</text><text x="535" y="234">16</text><text x="600" y="234">18</text>
+          </g>
+        </svg>
+        <div class="legend">
+          <span><i class="swl" style="background:#5fbfa9"></i> מתוכנן (מצטבר)</span>
+          <span><i class="swl" style="background:#ec4f86"></i> בוצע בפועל</span>
+          <span><i class="swl" style="background:#ff6b6b"></i> השבוע</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- GANTT -->
   <section>
-    <h2>📊 גאנט — תכנון מול ביצוע</h2>
-    <p class="muted">פס עליון = מתוכנן · פס תחתון = בוצע בפועל · % = השלמה</p>
+    <div class="sec-head"><h2>📊 לוח זמנים — גאנט עם אבני דרך</h2><span class="muted" style="font-size:12.5px">פס עליון=מתוכנן · תחתון=בוצע</span></div>
     <div class="card gantt">
       <div class="gantt-inner">
-        <!-- each bar: left% = (start-1)/18*100 ; width% = (end-start+1)/18*100 -->
-        <div class="grow"><div class="gname">עבודות עפר<small>חפירה/מילוי · חישוף</small></div>
+        <div class="months"><div></div><div class="mrow"><span>חודש 1</span><span>חודש 2</span><span>חודש 3</span><span>חודש 4</span><span>חודש 5</span></div></div>
+        <div class="grow"><div class="gname">עבודות עפר<small>צוות עפר · קבלן משנה</small></div>
           <div class="track">
-            <div class="bar plan" style="right:0%;width:22.2%"></div>
-            <div class="bar act" style="right:0%;width:22.2%"><span class="pct">100%</span></div>
-            <div class="today" style="right:41.7%"></div>
-          </div></div>
+            <div class="bar plan" style="right:0;width:22.2%"></div>
+            <div class="bar act" style="right:0;width:22.2%"><span class="pct">100%</span></div>
+            <div class="today" style="right:41.7%"></div></div></div>
         <div class="grow"><div class="gname">מצעים ודרכים<small>5,000 קוב</small></div>
           <div class="track">
             <div class="bar plan" style="right:11.1%;width:22.2%"></div>
             <div class="bar act late" style="right:11.1%;width:27.8%"><span class="pct">100%</span></div>
-            <div class="today" style="right:41.7%"></div>
-          </div></div>
-        <div class="grow"><div class="gname">נעיצות<small>4,053 יח'</small></div>
+            <div class="today" style="right:41.7%"></div></div></div>
+        <div class="grow"><div class="gname">נעיצות <span class="tag" style="background:rgba(255,107,107,.14);color:var(--red)">קריטי</span><small>4,053 יח' · 2 צוותים</small></div>
           <div class="track">
             <div class="bar plan" style="right:22.2%;width:27.8%"></div>
-            <div class="bar act" style="right:22.2%;width:19.5%"><span class="pct">70%</span></div>
-            <div class="today" style="right:41.7%"></div>
-          </div></div>
-        <div class="grow"><div class="gname">קונסטרוקציה ופאנלים<small>23,500 פאנל</small></div>
+            <div class="bar act crit" style="right:22.2%;width:19.5%"><span class="pct">70%</span></div>
+            <div class="today" style="right:41.7%"></div></div></div>
+        <div class="grow"><div class="gname">קונסטרוקציה ופאנלים <span class="tag" style="background:rgba(255,107,107,.14);color:var(--red)">קריטי</span><small>23,500 פאנל</small></div>
           <div class="track">
             <div class="bar plan" style="right:33.3%;width:44.4%"></div>
-            <div class="bar act late" style="right:38.9%;width:2.8%"><span class="pct">15%</span></div>
-            <div class="today" style="right:41.7%"></div>
-          </div></div>
+            <div class="bar act late crit" style="right:38.9%;width:2.8%"><span class="pct">15%</span></div>
+            <div class="today" style="right:41.7%"></div></div></div>
         <div class="grow"><div class="gname">חשמל שדה<small>סטרינגים + DCCB</small></div>
           <div class="track">
             <div class="bar plan" style="right:55.6%;width:33.3%"></div>
-            <div class="today" style="right:41.7%"></div>
-          </div></div>
+            <div class="today" style="right:41.7%"></div></div></div>
         <div class="grow"><div class="gname">מתחם אגירה<small>13 מכולות</small></div>
           <div class="track">
             <div class="bar plan" style="right:66.7%;width:27.8%"></div>
-            <div class="today" style="right:41.7%"></div>
-          </div></div>
+            <div class="today" style="right:41.7%"></div></div></div>
         <div class="grow"><div class="gname">חיבור, בדיקות ומסירה</div>
           <div class="track">
             <div class="bar plan" style="right:83.3%;width:16.7%"></div>
-            <div class="today" style="right:41.7%"></div>
+            <div class="today" style="right:41.7%"></div></div></div>
+
+        <div class="ms-row"><div class="gname" style="font-size:12px;color:var(--muted)">אבני דרך</div>
+          <div class="ms-track">
+            <div class="ms" style="right:30.6%"><i class="done"></i><small>מסירת אזור A</small></div>
+            <div class="ms" style="right:47.2%"><i></i><small>גמר נעיצות</small></div>
+            <div class="ms" style="right:75%"><i></i><small>גמר פאנלים</small></div>
+            <div class="ms" style="right:97.2%"><i></i><small>חיבור ומסירה</small></div>
           </div></div>
 
         <div class="axis"><div></div><div class="weeks">
@@ -194,107 +297,161 @@
         </div></div>
       </div>
       <div class="legend">
-        <span><i class="sw" style="background:rgba(91,181,162,.4)"></i> מתוכנן</span>
-        <span><i class="sw" style="background:linear-gradient(90deg,var(--sun2),var(--sun3))"></i> בוצע בזמן</span>
-        <span><i class="sw" style="background:linear-gradient(90deg,var(--gold2),var(--gold))"></i> בוצע באיחור</span>
-        <span><i class="sw" style="background:var(--red);width:3px"></i> השבוע</span>
+        <span><i class="sw" style="background:rgba(95,191,169,.4)"></i> מתוכנן</span>
+        <span><i class="sw" style="background:#ec4f86"></i> בוצע בזמן</span>
+        <span><i class="sw" style="background:#e3a93a"></i> בוצע באיחור</span>
+        <span><i class="sw" style="background:#e3a93a;transform:rotate(45deg);width:11px;height:11px"></i> אבן דרך</span>
       </div>
     </div>
   </section>
 
-  <!-- WEEK OPEN / CLOSE -->
+  <!-- PROGRESS BY AREA + PROCUREMENT -->
   <section>
     <div class="cols">
-      <!-- OPENING -->
       <div class="card">
-        <span class="pill t">פתיחת שבוע · שבוע 8</span>
-        <h2 style="margin-top:12px">יעדים, תקציב וצוותים</h2>
-        <p class="muted" style="font-size:13px;margin-top:4px">מה רוצים להשיג השבוע</p>
-        <ul class="clean teal">
-          <li><b>נעיצות אזור A</b> — להשלים 1,200 יח'</li>
-          <li><b>קונסטרוקציה</b> — להתחיל שורות 1–3</li>
-          <li>אישור מודד לאזור B (תלוי במזמין)</li>
-        </ul>
+        <h2 style="font-size:18px">🗺️ התקדמות לפי אזור</h2>
         <table>
-          <tr><th>תקציב השבוע</th><th>כ"א / כלים</th></tr>
-          <tr><td><b>₪185,000</b></td><td>2 צוותי נעיצה · 14 עובדים</td></tr>
-          <tr><td class="muted">שכר · קבלני משנה · רג'י</td><td>מנוף · שופל · בובקט</td></tr>
+          <tr><th>אזור</th><th>נעיצות</th><th>פאנלים</th><th>התקדמות</th></tr>
+          <tr><td>אזור A</td><td>100%</td><td>40%</td><td><div class="mini"><i style="width:70%"></i></div></td></tr>
+          <tr><td>אזור B</td><td>85%</td><td>0%</td><td><div class="mini"><i style="width:45%"></i></div></td></tr>
+          <tr><td>אזור C</td><td>40%</td><td>0%</td><td><div class="mini"><i style="width:20%"></i></div></td></tr>
+          <tr><td>אזור D</td><td>0%</td><td>0%</td><td><div class="mini"><i style="width:3%"></i></div></td></tr>
         </table>
-        <div class="note"><b>סיכונים/תלויות:</b> אספקת קונסטרוקציה מהספק · מודד מטעם המזמין · מזג אוויר.</div>
       </div>
+      <div class="card">
+        <h2 style="font-size:18px">📦 רכש וחומרים</h2>
+        <table>
+          <tr><th>פריט</th><th>הוזמן</th><th>סופק</th><th>סטטוס</th></tr>
+          <tr><td>פאנלים</td><td>100%</td><td>60%</td><td><span class="tag prog">באספקה</span></td></tr>
+          <tr><td>קונסטרוקציה</td><td>100%</td><td>45%</td><td><span class="tag prog">באספקה</span></td></tr>
+          <tr><td>כבלי DC</td><td>80%</td><td>30%</td><td><span class="tag wait">ממתין</span></td></tr>
+          <tr><td>מכולות אגירה</td><td>100%</td><td>0%</td><td><span class="tag wait">בדרך</span></td></tr>
+          <tr><td>ממירים</td><td>50%</td><td>0%</td><td><span class="tag wait">בהזמנה</span></td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
 
-      <!-- CLOSING -->
+  <!-- MANPOWER + WEEK OPEN/CLOSE -->
+  <section>
+    <div class="sec-head"><h2>👷 כוח אדם, פתיחה וסגירת שבוע</h2></div>
+    <div class="cols3">
       <div class="card">
-        <span class="pill g">סגירת שבוע · שבוע 7</span>
-        <h2 style="margin-top:12px">תכנון מול ביצוע</h2>
-        <table>
-          <tr><th>משימה</th><th>מתוכנן</th><th>בוצע</th><th>%</th></tr>
-          <tr><td>נעיצות אזור A</td><td>1,000</td><td>850</td><td><div class="mini"><i style="width:85%"></i></div></td></tr>
-          <tr><td>מצעים דרך ראשית</td><td>600 קוב</td><td>600</td><td class="ok">100%</td></tr>
-          <tr><td>הכנת קונסטרוקציה</td><td>שורות 1–2</td><td>שורה 1</td><td class="warn">50%</td></tr>
+        <span class="pill t">כוח אדם · שבוע 8</span>
+        <table style="margin-top:10px">
+          <tr><th>משאב</th><th>מתוכנן</th><th>בפועל</th></tr>
+          <tr><td>עובדים</td><td>14</td><td class="warn">12</td></tr>
+          <tr><td>צוותי נעיצה</td><td>2</td><td>2</td></tr>
+          <tr><td>נעיצות/יום</td><td>180</td><td class="bad">150</td></tr>
+          <tr><td>פאנלים/יום</td><td>—</td><td>320</td></tr>
         </table>
-        <table style="margin-top:14px">
-          <tr><th>תקציב</th><th>בפועל</th><th>סטייה</th></tr>
-          <tr><td>₪170,000</td><td>₪178,000</td><td class="bad">+5%</td></tr>
-        </table>
-        <ul class="clean red" style="margin-top:12px">
-          <li>עיכוב מודד יומיים → 150 נעיצות בפיגור</li>
-          <li>יום גשם אחד</li>
-          <li><b>גרר לשבוע 8:</b> 150 נעיצות + שורה 2 קונסטרוקציה</li>
-        </ul>
+        <div class="note" style="margin-top:10px">תפוקת נעיצות מתחת ליעד (חוסר 2 עובדים) — הסיבה לפיגור הקל.</div>
       </div>
+      <div class="card">
+        <span class="pill s">פתיחת שבוע 8</span>
+        <ul class="clean sun" style="margin-top:10px">
+          <li><b>נעיצות אזור A</b> — להשלים 1,200 יח'</li>
+          <li><b>קונסטרוקציה</b> — שורות 1–3</li>
+          <li>אישור מודד אזור B <span class="muted">(מזמין)</span></li>
+        </ul>
+        <table style="margin-top:10px">
+          <tr><th>תקציב</th><th>כ"א/כלים</th></tr>
+          <tr><td><b>₪185K</b></td><td>2 צוותים · מנוף · שופל</td></tr>
+        </table>
+        <div class="callout" style="margin-top:10px">⚠️ סיכונים: אספקת קונסטרוקציה · מודד מזמין · מזג אוויר.</div>
+      </div>
+      <div class="card">
+        <span class="pill g">סגירת שבוע 7</span>
+        <table style="margin-top:10px">
+          <tr><th>משימה</th><th>מתוכ'</th><th>בוצע</th></tr>
+          <tr><td>נעיצות A</td><td>1,000</td><td class="warn">850</td></tr>
+          <tr><td>מצעים</td><td>600</td><td class="ok">600</td></tr>
+          <tr><td>הכנת קונס'</td><td>2 שורות</td><td class="warn">1</td></tr>
+          <tr><td>תקציב</td><td>₪170K</td><td class="bad">₪178K</td></tr>
+        </table>
+        <div class="note" style="margin-top:10px">חריגות: עיכוב מודד יומיים · יום גשם. <b>גרר:</b> 150 נעיצות + שורה 2.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COST REPORT -->
+  <section>
+    <div class="sec-head"><h2>💰 דוח עלויות לפי קטגוריה</h2><span class="muted" style="font-size:12.5px">₪ אלפים · תקציב מול תחזית</span></div>
+    <div class="card">
+      <table>
+        <tr><th>קטגוריה</th><th>תקציב</th><th>בוצע %</th><th>עלות (AC)</th><th>מחויב</th><th>תחזית (EAC)</th><th>סטייה</th></tr>
+        <tr><td>עבודות עפר</td><td>350</td><td>100%</td><td>350</td><td>350</td><td>350</td><td class="ok">0</td></tr>
+        <tr><td>אזרחי (מצעים/ניקוז/בטון)</td><td>1,000</td><td>92%</td><td>640</td><td>1,000</td><td>985</td><td class="ok">+15</td></tr>
+        <tr><td>נעיצות</td><td>380</td><td>70%</td><td>270</td><td>384</td><td>384</td><td class="bad">−4</td></tr>
+        <tr><td>קונסטרוקציה ופאנלים</td><td>1,250</td><td>15%</td><td>190</td><td>800</td><td>1,235</td><td class="ok">+15</td></tr>
+        <tr><td>חשמל שדה</td><td>720</td><td>0%</td><td>0</td><td>200</td><td>710</td><td class="ok">+10</td></tr>
+        <tr><td>מתחם אגירה</td><td>150</td><td>0%</td><td>0</td><td>70</td><td>148</td><td class="ok">+2</td></tr>
+        <tr><td>ניהול ותקורה</td><td>150</td><td>44%</td><td>130</td><td>150</td><td>150</td><td class="ok">0</td></tr>
+        <tr class="tot"><td>סה"כ</td><td>4,000</td><td>40%</td><td>1,580</td><td>2,954</td><td>3,962</td><td class="ok">+38</td></tr>
+      </table>
+      <div class="note">תחזית עלות סופית ₪3,962K מול תקציב ₪4,000K → חיסכון צפוי ₪38K. רווח גולמי צפוי: ₪4,858K − ₪3,962K = <b>₪896K (18.5%)</b>.</div>
     </div>
   </section>
 
   <!-- CASHFLOW -->
   <section>
-    <h2>💧 ניהול תזרים</h2>
-    <p class="muted">תזרים מצטבר לאורך הפרויקט (₪ אלפים) — שים לב לשפל לפני שהגבייה מדביקה</p>
+    <div class="sec-head"><h2>💧 ניהול תזרים</h2><span class="muted" style="font-size:12.5px">תזרים מצטבר · ₪ אלפים</span></div>
     <div class="card">
       <div class="cf">
         <div class="baseline"></div>
-        <div class="cfcol"><div class="cfval" style="top:108px">−100</div><div class="cfbar neg" style="top:96px;height:11px"></div></div>
-        <div class="cfcol"><div class="cfval" style="top:210px">−1,000</div><div class="cfbar neg" style="top:96px;height:111px"></div></div>
-        <div class="cfcol"><div class="cfval" style="top:224px">−1,300</div><div class="cfbar neg" style="top:96px;height:144px"></div></div>
-        <div class="cfcol"><div class="cfval" style="top:222px">−1,100</div><div class="cfbar neg" style="top:96px;height:122px"></div></div>
-        <div class="cfcol"><div class="cfval" style="top:144px">−400</div><div class="cfbar neg" style="top:96px;height:44px"></div></div>
-        <div class="cfcol"><div class="cfval" style="top:-16px">+860</div><div class="cfbar pos" style="top:1px;height:95px"></div></div>
+        <div class="cfcol"><div class="cfval" style="top:104px">−100</div><div class="cfbar neg" style="top:92px;height:11px"></div></div>
+        <div class="cfcol"><div class="cfval" style="top:206px">−1,000</div><div class="cfbar neg" style="top:92px;height:111px"></div></div>
+        <div class="cfcol"><div class="cfval" style="top:220px">−1,300</div><div class="cfbar neg" style="top:92px;height:144px"></div></div>
+        <div class="cfcol"><div class="cfval" style="top:218px">−1,100</div><div class="cfbar neg" style="top:92px;height:122px"></div></div>
+        <div class="cfcol"><div class="cfval" style="top:140px">−400</div><div class="cfbar neg" style="top:92px;height:44px"></div></div>
+        <div class="cfcol"><div class="cfval" style="top:-16px">+860</div><div class="cfbar pos" style="top:1px;height:91px"></div></div>
       </div>
       <div class="cfx"><span>חודש 1</span><span>חודש 2</span><span>חודש 3</span><span>חודש 4</span><span>חודש 5</span><span>סיום</span></div>
-
-      <table style="margin-top:22px">
-        <tr><th>חודש</th><th>גבייה (כניסה)</th><th>הוצאות (יציאה)</th><th>תזרים חודשי</th><th>מצטבר</th></tr>
-        <tr><td>1</td><td>500 <span class="muted">(מקדמה)</span></td><td>600</td><td class="bad">−100</td><td class="bad">−100</td></tr>
+      <table style="margin-top:20px">
+        <tr><th>חודש</th><th>גבייה</th><th>הוצאות</th><th>תזרים</th><th>מצטבר</th></tr>
+        <tr><td>1</td><td>500 <span class="muted">מקדמה</span></td><td>600</td><td class="bad">−100</td><td class="bad">−100</td></tr>
         <tr><td>2</td><td>0</td><td>900</td><td class="bad">−900</td><td class="bad">−1,000</td></tr>
         <tr><td>3</td><td>700</td><td>1,000</td><td class="bad">−300</td><td class="bad">−1,300</td></tr>
         <tr><td>4</td><td>1,100</td><td>900</td><td class="ok">+200</td><td class="bad">−1,100</td></tr>
         <tr><td>5</td><td>1,300</td><td>600</td><td class="ok">+700</td><td class="bad">−400</td></tr>
-        <tr><td>סיום</td><td>1,260 <span class="muted">(יתרת חוזה)</span></td><td>0</td><td class="ok">+1,260</td><td class="ok">+860</td></tr>
-        <tr><td><b>סה"כ</b></td><td><b>4,860</b></td><td><b>4,000</b></td><td colspan="2" class="ok"><b>רווח +860</b></td></tr>
+        <tr><td>סיום</td><td>1,260 <span class="muted">יתרה</span></td><td>0</td><td class="ok">+1,260</td><td class="ok">+860</td></tr>
+        <tr class="tot"><td>סה"כ</td><td>4,860</td><td>4,000</td><td colspan="2" class="ok">רווח +860</td></tr>
       </table>
-      <div class="callout">⚠️ <b>הון חוזר נדרש ≈ ₪1.3M</b> — הפער שבוסטן ואביתר מזרימים שווה בשווה עד שהגבייה מדביקה את ההוצאות (תשלום שוטף+60 מהקבלן הראשי).</div>
+      <div class="callout">⚠️ <b>הון חוזר נדרש ≈ ₪1.3M</b> — הפער שבוסטן ואביתר מזרימים שווה בשווה עד שהגבייה מדביקה (תשלום שוטף+60 מהקבלן הראשי).</div>
     </div>
   </section>
 
-  <!-- P&L -->
+  <!-- RISK + QUALITY/SAFETY -->
   <section>
-    <h2>📈 דוח רווחיות פר-פרויקט</h2>
-    <div class="card">
-      <table>
-        <tr><th>סעיף</th><th>סכום (₪)</th><th>הערה</th></tr>
-        <tr><td>הכנסות חוזה</td><td class="ok">4,857,934</td><td class="muted">לפי כתב הכמויות</td></tr>
-        <tr><td>עלות מתוכננת</td><td>4,000,000</td><td class="muted">שכר · קבלני משנה · חומרים · כלים</td></tr>
-        <tr><td><b>רווח יעד</b></td><td class="ok"><b>857,934</b></td><td><b>17.7%</b></td></tr>
-        <tr><td colspan="3" style="padding-top:16px;color:var(--muted);font-weight:700">— מצב נוכחי (סוף שבוע 7) —</td></tr>
-        <tr><td>ערך מבוצע</td><td class="t" style="color:var(--sun2)">1,922,000</td><td class="muted">~40% מהחוזה</td></tr>
-        <tr><td>עלות בפועל</td><td>1,580,000</td><td class="muted"></td></tr>
-        <tr><td><b>רווח גולמי עד כה</b></td><td class="ok"><b>342,000</b></td><td><b>17.8%</b> <span class="ok">✓ ביעד</span></td></tr>
-      </table>
-      <div class="note">הבונוס של אביתר נגזר מעמידה ביעד הרווחיות (17.7%). דוח זה מתעדכן כל שבוע בסגירה — וזה כלי הניהול המרכזי של החברה.</div>
+    <div class="cols">
+      <div class="card">
+        <h2 style="font-size:18px">⚠️ מרשם סיכונים</h2>
+        <table>
+          <tr><th>סיכון</th><th>סבירות</th><th>השפעה</th><th>מיטיגציה</th></tr>
+          <tr><td>פיגור נעיצות</td><td class="warn">בינונית</td><td class="bad">גבוהה</td><td>צוות 3 / ש.נוספות</td></tr>
+          <tr><td>איחור אספקת קונס'</td><td class="warn">בינונית</td><td class="bad">גבוהה</td><td>ספק גיבוי</td></tr>
+          <tr><td>זמינות מודד מזמין</td><td class="bad">גבוהה</td><td class="warn">בינונית</td><td>תיאום שבועי מראש</td></tr>
+          <tr><td>עצירות ביטחוניות</td><td class="warn">בינונית</td><td class="warn">בינונית</td><td>סעיף בחוזה</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h2 style="font-size:18px">✅ איכות ובטיחות</h2>
+        <table>
+          <tr><th>מדד</th><th>ערך</th></tr>
+          <tr><td>ימים ללא תאונה</td><td class="ok">47</td></tr>
+          <tr><td>ביקורות איכות שעברו</td><td class="ok">12 / 12</td></tr>
+          <tr><td>אי-התאמות פתוחות (NCR)</td><td class="warn">1</td></tr>
+          <tr><td>שבירת פאנלים</td><td class="ok">0.3% <span class="muted">(תקרה 0.5%)</span></td></tr>
+          <tr><td>שינויים פתוחים (Change Orders)</td><td>2 · ₪+45K</td></tr>
+        </table>
+      </div>
     </div>
   </section>
 
-  <div class="foot">דוגמה להמחשה · בוסטן × אביתר · נתוני מישור רותם 17MW · 2026</div>
+  <footer>
+    <span class="brandlock" style="margin:0"><a href="home.html"><span class="mk-sun lk-sun" style="width:18px;height:18px"></span><span class="wm" style="font-size:11px">LKY</span><span class="bx">×</span><span class="wm wm-bustan" style="font-size:12px">Bustan</span><span class="mk-orb lk-orb" style="width:18px;height:18px"></span></a></span>
+    <span>דוגמה להמחשה · מישור רותם 17MW · טיוטה · 2026</span>
+  </footer>
 </div>
 </body>
 </html>
