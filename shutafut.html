@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>עקרונות שותפות · ל.ק.י × אביתר</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#070d0b;
+    --panel:rgba(255,255,255,.04);
+    --panel-brd:rgba(255,255,255,.09);
+    --ink:#eef5f1;
+    --muted:#8aa399;
+    --green:#34e0a1;
+    --green2:#13a673;
+    --gold:#ffc861;
+    --blue:#8fb6ff;
+    --red:#ff7a7a;
+    --line:rgba(255,255,255,.07);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    font-family:'Heebo',sans-serif;
+    background:
+      radial-gradient(1200px 600px at 85% -10%, rgba(52,224,161,.12), transparent 60%),
+      radial-gradient(900px 600px at -10% 110%, rgba(255,200,97,.07), transparent 55%),
+      var(--bg);
+    color:var(--ink);overflow:hidden;
+  }
+  .display{font-family:'Frank Ruhl Libre',serif}
+  .deck{position:fixed;inset:0}
+  .slide{
+    position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
+    padding:clamp(24px,5vw,90px);opacity:0;visibility:hidden;
+    transform:translateY(24px) scale(.985);
+    transition:opacity .5s ease, transform .5s ease, visibility .5s;overflow-y:auto;
+  }
+  .slide.active{opacity:1;visibility:visible;transform:none;z-index:2}
+  .slide.active .reveal{animation:rise .6s both}
+  .slide.active .reveal:nth-child(2){animation-delay:.07s}
+  .slide.active .reveal:nth-child(3){animation-delay:.14s}
+  .slide.active .reveal:nth-child(4){animation-delay:.21s}
+  .slide.active .reveal:nth-child(5){animation-delay:.28s}
+  @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+  .kicker{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:700;
+    letter-spacing:.12em;color:var(--green);text-transform:uppercase;margin-bottom:18px}
+  .kicker::before{content:"";width:26px;height:2px;background:linear-gradient(90deg,var(--green),transparent)}
+  h1{font-size:clamp(34px,6vw,76px);line-height:1.02;font-weight:900;letter-spacing:-.02em}
+  h2{font-size:clamp(26px,4.4vw,48px);line-height:1.08;font-weight:900;letter-spacing:-.01em;margin-bottom:6px}
+  .sub{color:var(--muted);font-size:clamp(15px,1.6vw,19px);font-weight:300;margin-top:14px;max-width:64ch;line-height:1.6}
+  .big-num{font-family:'Frank Ruhl Libre',serif;font-weight:900;
+    background:linear-gradient(120deg,#fff,var(--green) 65%,var(--green2));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .big-gold{font-family:'Frank Ruhl Libre',serif;font-weight:900;
+    background:linear-gradient(120deg,#fff,var(--gold));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+
+  .cover-meta{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+  .chip{background:var(--panel);border:1px solid var(--panel-brd);border-radius:999px;
+    padding:9px 18px;font-size:14px;font-weight:500}
+  .chip b{color:var(--green);font-weight:700}
+
+  .grid{display:grid;gap:16px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .card{background:var(--panel);border:1px solid var(--panel-brd);border-radius:18px;
+    padding:20px 22px;backdrop-filter:blur(14px)}
+  .card.accent{border-color:rgba(52,224,161,.4);background:rgba(52,224,161,.06)}
+  .card.gold{border-color:rgba(255,200,97,.4);background:rgba(255,200,97,.06)}
+  .card .lbl{color:var(--muted);font-size:13px;font-weight:600;margin-bottom:10px}
+  .card .val{font-size:clamp(20px,2.3vw,28px);font-weight:900}
+  .card .val.sm{font-size:17px;font-weight:700}
+  .head{font-weight:900;font-size:18px;margin-bottom:6px}
+  .head.g{color:var(--green)}.head.gd{color:var(--gold)}.head.b{color:var(--blue)}
+
+  ul.clean{list-style:none;display:flex;flex-direction:column;gap:11px;margin-top:12px}
+  ul.clean li{display:flex;gap:11px;align-items:flex-start;font-size:clamp(14px,1.5vw,16.5px);line-height:1.5}
+  ul.clean li::before{content:"";flex:none;width:8px;height:8px;border-radius:2px;margin-top:8px;
+    background:var(--green);transform:rotate(45deg)}
+  ul.clean.gold li::before{background:var(--gold)}
+  ul.clean.red li::before{background:var(--red)}
+  ul.clean.blue li::before{background:var(--blue)}
+
+  .flow{display:flex;align-items:stretch;gap:14px;flex-wrap:wrap;margin-top:24px}
+  .flow .step{flex:1;min-width:200px;background:var(--panel);border:1px solid var(--panel-brd);
+    border-radius:16px;padding:20px}
+  .flow .step .n{font-family:'Frank Ruhl Libre',serif;font-size:30px;font-weight:900;color:var(--green)}
+  .flow .arrow{display:flex;align-items:center;color:var(--muted);font-size:26px}
+
+  .note{margin-top:18px;padding:14px 18px;border-radius:14px;background:rgba(255,200,97,.08);
+    border:1px solid rgba(255,200,97,.2);font-size:14.5px;color:#ffe6b8;line-height:1.6}
+
+  .topbar{position:fixed;top:0;left:0;right:0;height:4px;background:rgba(255,255,255,.06);z-index:50}
+  .progress{height:100%;background:linear-gradient(90deg,var(--green),var(--green2));width:0;transition:width .4s}
+  .nav{position:fixed;bottom:22px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:16px;z-index:50}
+  .nav button{width:46px;height:46px;border-radius:50%;border:1px solid var(--panel-brd);background:var(--panel);
+    color:var(--ink);font-size:20px;cursor:pointer;backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;transition:.2s}
+  .nav button:hover{background:rgba(52,224,161,.18);border-color:var(--green);transform:translateY(-2px)}
+  .counter{font-variant-numeric:tabular-nums;font-weight:700;color:var(--muted);font-size:14px;min-width:52px;text-align:center}
+  .dots{position:fixed;top:50%;left:20px;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:50}
+  .dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;transition:.25s}
+  .dot.on{background:var(--green);transform:scale(1.45)}
+  .foot{position:absolute;bottom:18px;right:clamp(24px,5vw,90px);color:var(--muted);font-size:12px;letter-spacing:.04em}
+  .watermark{position:absolute;top:clamp(24px,5vw,90px);left:clamp(24px,5vw,90px);font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.14em}
+
+  @media(max-width:760px){
+    .g2,.g3,.g4{grid-template-columns:1fr}
+    .dots{display:none}.flow .arrow{transform:rotate(90deg)}
+  }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="progress" id="prog"></div></div>
+<div class="dots" id="dots"></div>
+<div class="deck" id="deck">
+
+  <!-- 1 COVER -->
+  <section class="slide">
+    <div class="watermark reveal">מסמך עקרונות · טיוטה</div>
+    <div class="kicker reveal">שותפות עסקית · 2026</div>
+    <h1 class="reveal">שני מנועים,<br><span class="big-num">חברה אחת</span></h1>
+    <p class="sub reveal">מסגרת שותפות בין ל.ק.י לאביתר — אביתר מוביל את הביצוע, אנחנו את המסחר והניהול. פרויקט מישור רותם 17MW הוא הפיילוט שעליו נבנית השותפות.</p>
+    <div class="cover-meta reveal">
+      <span class="chip">אחזקות <b>50/50</b></span>
+      <span class="chip">חברה חדשה <b>בע"מ</b></span>
+      <span class="chip">סיכון <b>משותף</b></span>
+    </div>
+    <div class="foot">← → לניווט</div>
+  </section>
+
+  <!-- 2 PRINCIPLE -->
+  <section class="slide">
+    <div class="kicker reveal">עיקרון החלוקה</div>
+    <h2 class="reveal">שני תחומי אחריות שלא חופפים</h2>
+    <p class="sub reveal">כל צד אוטונומי בתחומו ומומחה בו. ההחלטות הגדולות — במשותף. כך נמנעים חיכוכים, וכל אחד אחראי על מה שהוא הכי טוב בו.</p>
+    <div class="grid g2 reveal" style="margin-top:28px">
+      <div class="card accent"><div class="head g">🔨 אביתר — ביצוע</div><div class="card-sub" style="color:var(--muted)">השטח, הצוותים, התוצר בפועל</div></div>
+      <div class="card gold"><div class="head gd">💼 אנחנו — מסחר וניהול</div><div class="card-sub" style="color:var(--muted)">הכסף, החוזים, הלקוחות, הצמיחה</div></div>
+    </div>
+    <div class="note reveal">חברה אחת = אינטרס אחד. שני המנועים מושכים לאותו כיוון.</div>
+  </section>
+
+  <!-- 3 EVIATAR -->
+  <section class="slide">
+    <div class="kicker reveal">🔨 צד הביצוע</div>
+    <h2 class="reveal">אביתר — מנוע הביצוע</h2>
+    <ul class="clean reveal" style="margin-top:20px">
+      <li>ניהול שטח, צוותים, קבלני משנה וכלים</li>
+      <li>לוחות זמנים, התקדמות וביצוע בפועל</li>
+      <li>רכש חומרים ועבודה — מול היעדים המסחריים</li>
+      <li>בקרת איכות, בטיחות ועמידה במפרט</li>
+      <li>דיווח שטח שבועי (כמויות שבוצעו) ← לחיוב</li>
+      <li>אחריות מקצועית בשטח מול הקבלן הראשי</li>
+    </ul>
+  </section>
+
+  <!-- 4 US -->
+  <section class="slide">
+    <div class="kicker reveal">💼 הצד המסחרי-ניהולי</div>
+    <h2 class="reveal">אנחנו — מנוע המסחר והניהול</h2>
+    <div class="grid g3 reveal" style="margin-top:22px">
+      <div class="card"><div class="head gd">פיננסים</div><ul class="clean gold"><li>רו"ח</li><li>חשבוניות ותזרים</li><li>שכר</li></ul></div>
+      <div class="card"><div class="head gd">משפטי</div><ul class="clean gold"><li>עו"ד והסכמים</li><li>סיווג קבלני</li><li>ביטוחים וערבויות</li></ul></div>
+      <div class="card"><div class="head gd">סדר בחברה</div><ul class="clean gold"><li>הקמה והתנהלות</li><li>מסמכים ונהלים</li><li>מערכות</li></ul></div>
+      <div class="card"><div class="head gd">ריתמוס שבועי</div><ul class="clean gold"><li>פתיחת שבוע</li><li>סגירת שבוע</li><li>בקרה מול תקציב</li></ul></div>
+      <div class="card"><div class="head gd">לקוחות</div><ul class="clean gold"><li>דוחות וחיוב לקבלן ראשי</li><li>ניהול תיקי לקוחות</li><li>גבייה</li></ul></div>
+      <div class="card"><div class="head gd">פיתוח עסקי</div><ul class="clean gold"><li>מציאת פרויקטים</li><li>תמחור והצעות</li><li>סגירות</li></ul></div>
+    </div>
+  </section>
+
+  <!-- 5 COMPENSATION -->
+  <section class="slide">
+    <div class="kicker reveal">מנגנון תגמול · הלב של ההסכם</div>
+    <h2 class="reveal">איך מתחלק הכסף</h2>
+    <div class="flow reveal">
+      <div class="step"><div class="n">1</div><div class="head g">משכורת לאביתר</div><div style="color:var(--muted);margin-top:6px;font-size:15px">קבועה חודשית — תמורת עבודתו במשרה מלאה בשטח</div></div>
+      <div class="arrow">←</div>
+      <div class="step"><div class="n">2</div><div class="head g">בונוס השלמה</div><div style="color:var(--muted);margin-top:6px;font-size:15px">לאביתר, על השלמת פרויקט בעמידה ביעד הרווחיות</div></div>
+      <div class="arrow">←</div>
+      <div class="step"><div class="n">3</div><div class="head g">דיבידנד 50/50</div><div style="color:var(--muted);margin-top:6px;font-size:15px">הרווח הנותר (אחרי שכר, הוצאות ובונוס) מתחלק שווה</div></div>
+    </div>
+    <div class="note reveal">להחלטה: האם גם אתם מושכים משכורת ניהול, או רק דיבידנד? <b>מומלץ למשוך גם</b> — כדי שהחלוקה תישאר הוגנת לאורך זמן לשני הצדדים.</div>
+  </section>
+
+  <!-- 6 CAPITAL + DECISIONS -->
+  <section class="slide">
+    <div class="kicker reveal">הון, סיכון והחלטות</div>
+    <h2 class="reveal">שווה בשווה — ושקוף</h2>
+    <div class="grid g2 reveal" style="margin-top:22px">
+      <div class="card accent"><div class="head g">הון, ערבויות וסיכון — 50/50</div>
+        <ul class="clean"><li>הון חוזר מוזרם שווה בשווה</li><li>חתימה משותפת על ערבויות וביטוחים</li><li>רווח / הפסד / סיכון — חצי-חצי</li></ul></div>
+      <div class="card"><div class="head b">קבלת החלטות</div>
+        <ul class="clean blue"><li>כל אחד אוטונומי בתחומו</li><li>מעל סכום סף מוסכם → בהסכמה משותפת</li><li>תמיד משותף: פרויקט חדש · גיוס מהותי · הלוואות/ערבויות · דיבידנד · שינוי שכר/בונוס</li></ul></div>
+    </div>
+  </section>
+
+  <!-- 7 MONEY + RHYTHM -->
+  <section class="slide">
+    <div class="kicker reveal">כספים ושקיפות</div>
+    <h2 class="reveal">חשבון אחד · שקיפות מלאה</h2>
+    <div class="grid g3 reveal" style="margin-top:22px">
+      <div class="card"><div class="lbl">חשבון</div><div class="val sm">חשבון חברה אחד, שקיפות מלאה לשניים</div></div>
+      <div class="card accent"><div class="lbl">ריתמוס שבועי</div><div class="val sm">פתיחת שבוע (יעדים+תקציב) ← סגירת שבוע (ביצוע בפועל)</div></div>
+      <div class="card gold"><div class="lbl">כלי הניהול המרכזי</div><div class="val sm">דוח רווחיות פר-פרויקט</div></div>
+    </div>
+    <div class="note reveal">השקיפות היא הדבק של השותפות — שני הצדדים רואים כל שקל, כל הזמן.</div>
+  </section>
+
+  <!-- 8 PILOT -->
+  <section class="slide">
+    <div class="kicker reveal">הפיילוט</div>
+    <h2 class="reveal">מישור רותם = מבחן המודל</h2>
+    <p class="sub reveal">הפרויקט הראשון הוא הבסיס. בסיום מוצלח — מעגנים הכל בהסכם מייסדים רשמי.</p>
+    <div class="grid g3 reveal" style="margin-top:24px">
+      <div class="card"><div class="lbl">מדד 1</div><div class="val sm">עמידה ברווחיות היעד</div></div>
+      <div class="card"><div class="lbl">מדד 2</div><div class="val sm">איכות הדיווח והבקרה</div></div>
+      <div class="card"><div class="lbl">מדד 3</div><div class="val sm">חלוקת העבודה בפועל</div></div>
+    </div>
+    <div class="grid g4 reveal" style="margin-top:16px">
+      <div class="card gold"><div class="lbl">פרויקט</div><div class="val">17MW</div></div>
+      <div class="card gold"><div class="lbl">פאנלים</div><div class="val">23,500</div></div>
+      <div class="card gold"><div class="lbl">אגירה</div><div class="val">13</div></div>
+      <div class="card gold"><div class="lbl">היקף מחושב</div><div class="val">₪4.86M</div></div>
+    </div>
+  </section>
+
+  <!-- 9 PROTECTIONS -->
+  <section class="slide">
+    <div class="kicker reveal">מנגנוני הגנה</div>
+    <h2 class="reveal">להכניס להסכם המשפטי</h2>
+    <div class="grid g2 reveal" style="margin-top:22px">
+      <div class="card"><ul class="clean red">
+        <li><b>Vesting / תקופת מבחן</b> לפני אחזקות מלאות</li>
+        <li><b>מנגנון יציאה</b> (BMBY / זכות סירוב ראשונה)</li>
+        <li><b>אי-תחרות + סודיות</b></li>
+      </ul></div>
+      <div class="card"><ul class="clean red">
+        <li>מה קורה אם צד <b>עוזב או לא מתפקד</b></li>
+        <li>שקילת <b>ביטוח מפתח-אדם</b></li>
+        <li>מנגנון <b>יישוב מחלוקות</b></li>
+      </ul></div>
+    </div>
+    <div class="note reveal">ההגנות האלה לא חוסר אמון — הן מה שמאפשר אמון לטווח ארוך.</div>
+  </section>
+
+  <!-- 10 NEXT STEPS -->
+  <section class="slide">
+    <div class="watermark reveal">ל.ק.י × אביתר</div>
+    <div class="kicker reveal">צעדים הבאים</div>
+    <h1 class="reveal">מהפיילוט<br><span class="big-gold">לשותפות</span></h1>
+    <div class="flow reveal" style="margin-top:14px">
+      <div class="step"><div class="n">1</div><div class="head g">עו"ד</div><div style="color:var(--muted);margin-top:6px;font-size:15px">הסכם מייסדים + תקנון</div></div>
+      <div class="step"><div class="n">2</div><div class="head g">רו"ח</div><div style="color:var(--muted);margin-top:6px;font-size:15px">הקמת בע"מ + מבנה מס</div></div>
+      <div class="step"><div class="n">3</div><div class="head g">בנק</div><div style="color:var(--muted);margin-top:6px;font-size:15px">חשבון משותף</div></div>
+      <div class="step"><div class="n">4</div><div class="head g">לסכם מספרים</div><div style="color:var(--muted);margin-top:6px;font-size:15px">סף החלטות · שכר אביתר · נוסחת בונוס</div></div>
+    </div>
+    <div class="foot">מסמך עקרונות · טיוטה לדיון · 2026</div>
+  </section>
+
+</div>
+
+<div class="nav">
+  <button id="next" aria-label="הבא">›</button>
+  <span class="counter" id="counter">1 / 10</span>
+  <button id="prev" aria-label="הקודם">‹</button>
+</div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  const dotsWrap=document.getElementById('dots');
+  const prog=document.getElementById('prog');
+  const counter=document.getElementById('counter');
+  let i=0;
+  slides.forEach((_,n)=>{const d=document.createElement('div');d.className='dot';d.onclick=()=>go(n);dotsWrap.appendChild(d)});
+  const dots=[...document.querySelectorAll('.dot')];
+  function go(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    dots.forEach((d,k)=>d.classList.toggle('on',k===i));
+    prog.style.width=((i+1)/slides.length*100)+'%';
+    counter.textContent=(i+1)+' / '+slides.length;
+  }
+  document.getElementById('next').onclick=()=>go(i+1);
+  document.getElementById('prev').onclick=()=>go(i-1);
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowLeft'||e.key==='PageDown'||e.key===' ')go(i+1);
+    if(e.key==='ArrowRight'||e.key==='PageUp')go(i-1);
+    if(e.key==='Home')go(0); if(e.key==='End')go(slides.length-1);
+  });
+  let sx=0;
+  document.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
+  document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50){dx<0?go(i+1):go(i-1)}},{passive:true});
+  go(0);
+</script>
+</body>
+</html>
