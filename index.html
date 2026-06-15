@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תמחור אביתר · מישור רותם 17MW</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0e14;
+    --bg2:#0f141d;
+    --panel:rgba(255,255,255,.04);
+    --panel-brd:rgba(255,255,255,.09);
+    --ink:#eef2f7;
+    --muted:#8b96a7;
+    --amber:#ffb627;
+    --amber2:#ff8a00;
+    --green:#3ddc97;
+    --red:#ff6b6b;
+    --line:rgba(255,255,255,.07);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    font-family:'Heebo',sans-serif;
+    background:
+      radial-gradient(1200px 600px at 85% -10%, rgba(255,182,39,.10), transparent 60%),
+      radial-gradient(900px 600px at -10% 110%, rgba(61,220,151,.07), transparent 55%),
+      var(--bg);
+    color:var(--ink);
+    overflow:hidden;
+  }
+  .display{font-family:'Frank Ruhl Libre',serif}
+
+  /* deck */
+  .deck{position:fixed;inset:0}
+  .slide{
+    position:absolute;inset:0;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:clamp(24px,5vw,90px);
+    opacity:0;visibility:hidden;
+    transform:translateY(24px) scale(.985);
+    transition:opacity .5s ease, transform .5s ease, visibility .5s;
+    overflow-y:auto;
+  }
+  .slide.active{opacity:1;visibility:visible;transform:none;z-index:2}
+  .slide.active .reveal{animation:rise .6s both}
+  .slide.active .reveal:nth-child(2){animation-delay:.07s}
+  .slide.active .reveal:nth-child(3){animation-delay:.14s}
+  .slide.active .reveal:nth-child(4){animation-delay:.21s}
+  .slide.active .reveal:nth-child(5){animation-delay:.28s}
+  @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+  .kicker{
+    display:inline-flex;align-items:center;gap:9px;
+    font-size:13px;font-weight:700;letter-spacing:.12em;
+    color:var(--amber);text-transform:uppercase;margin-bottom:18px;
+  }
+  .kicker::before{content:"";width:26px;height:2px;background:linear-gradient(90deg,var(--amber),transparent)}
+  h1{font-size:clamp(34px,6vw,76px);line-height:1.02;font-weight:900;letter-spacing:-.02em}
+  h2{font-size:clamp(26px,4.4vw,48px);line-height:1.08;font-weight:900;letter-spacing:-.01em;margin-bottom:6px}
+  .sub{color:var(--muted);font-size:clamp(15px,1.6vw,19px);font-weight:300;margin-top:14px;max-width:62ch}
+
+  /* cover */
+  .cover-meta{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+  .chip{
+    background:var(--panel);border:1px solid var(--panel-brd);
+    border-radius:999px;padding:9px 18px;font-size:14px;font-weight:500;color:var(--ink)
+  }
+  .chip b{color:var(--amber);font-weight:700}
+  .big-num{
+    font-family:'Frank Ruhl Libre',serif;font-weight:900;
+    background:linear-gradient(120deg,#fff,var(--amber) 70%,var(--amber2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+
+  /* grids & cards */
+  .grid{display:grid;gap:16px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .card{
+    background:var(--panel);border:1px solid var(--panel-brd);
+    border-radius:18px;padding:20px 22px;backdrop-filter:blur(14px);
+  }
+  .card .lbl{color:var(--muted);font-size:13px;font-weight:500;margin-bottom:8px}
+  .card .val{font-size:clamp(22px,2.4vw,30px);font-weight:900}
+  .card .val.sm{font-size:18px}
+
+  /* line-item table */
+  .tbl{width:100%;border-collapse:collapse;font-size:clamp(13px,1.4vw,16px)}
+  .tbl th{
+    text-align:right;color:var(--muted);font-weight:700;font-size:12.5px;
+    letter-spacing:.04em;padding:10px 14px;border-bottom:1px solid var(--line)
+  }
+  .tbl td{padding:11px 14px;border-bottom:1px solid var(--line)}
+  .tbl tr:last-child td{border-bottom:none}
+  .tbl .num{font-variant-numeric:tabular-nums;color:var(--ink);font-weight:500;white-space:nowrap}
+  .tbl .tot{font-weight:900;color:var(--amber);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .tbl tr.sum td{background:rgba(255,182,39,.07);font-weight:900}
+  .tag{font-size:11px;font-weight:700;padding:3px 9px;border-radius:7px;white-space:nowrap}
+  .tag.lky{background:rgba(61,220,151,.14);color:var(--green)}
+  .tag.nx{background:rgba(120,170,255,.14);color:#8fb6ff}
+  .tag.open{background:rgba(255,107,107,.14);color:var(--red)}
+  .domain{display:inline-block;font-weight:900;color:var(--amber);font-size:13px;letter-spacing:.04em}
+
+  /* bars */
+  .bars{display:flex;flex-direction:column;gap:14px;margin-top:8px}
+  .bar-row{display:grid;grid-template-columns:170px 1fr auto;align-items:center;gap:14px}
+  .bar-row .name{font-weight:500}
+  .bar-track{height:26px;background:rgba(255,255,255,.05);border-radius:8px;overflow:hidden}
+  .bar-fill{height:100%;border-radius:8px;background:linear-gradient(90deg,var(--amber2),var(--amber));
+    transform-origin:right;animation:grow 1s .2s both cubic-bezier(.2,.8,.2,1)}
+  @keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  .bar-row .v{font-weight:900;font-variant-numeric:tabular-nums;color:var(--ink)}
+
+  .note{
+    margin-top:18px;padding:14px 18px;border-radius:14px;
+    background:rgba(255,182,39,.07);border:1px solid rgba(255,182,39,.18);
+    font-size:14px;color:#ffe6b0;line-height:1.6
+  }
+  .note.r{background:rgba(255,107,107,.07);border-color:rgba(255,107,107,.2);color:#ffd0d0}
+
+  ul.clean{list-style:none;display:flex;flex-direction:column;gap:12px}
+  ul.clean li{display:flex;gap:12px;align-items:flex-start;font-size:clamp(14px,1.5vw,17px);line-height:1.5}
+  ul.clean li::before{content:"";flex:none;width:9px;height:9px;border-radius:3px;margin-top:8px;
+    background:var(--amber);transform:rotate(45deg)}
+  ul.clean.r li::before{background:var(--red)}
+
+  /* chrome */
+  .topbar{position:fixed;top:0;left:0;right:0;height:4px;background:rgba(255,255,255,.06);z-index:50}
+  .progress{height:100%;background:linear-gradient(90deg,var(--amber),var(--amber2));width:0;transition:width .4s}
+  .nav{position:fixed;bottom:22px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:16px;z-index:50}
+  .nav button{
+    width:46px;height:46px;border-radius:50%;border:1px solid var(--panel-brd);
+    background:var(--panel);color:var(--ink);font-size:20px;cursor:pointer;backdrop-filter:blur(10px);
+    display:flex;align-items:center;justify-content:center;transition:.2s
+  }
+  .nav button:hover{background:rgba(255,182,39,.18);border-color:var(--amber);transform:translateY(-2px)}
+  .counter{font-variant-numeric:tabular-nums;font-weight:700;color:var(--muted);font-size:14px;min-width:52px;text-align:center}
+  .dots{position:fixed;top:50%;left:20px;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:50}
+  .dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;transition:.25s}
+  .dot.on{background:var(--amber);transform:scale(1.45)}
+  .foot{position:absolute;bottom:18px;right:clamp(24px,5vw,90px);color:var(--muted);font-size:12px;letter-spacing:.04em}
+  .watermark{position:absolute;top:clamp(24px,5vw,90px);left:clamp(24px,5vw,90px);font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.14em}
+
+  @media(max-width:760px){
+    .g2,.g3,.g4{grid-template-columns:1fr}
+    .bar-row{grid-template-columns:110px 1fr;}.bar-row .v{grid-column:2;text-align:left}
+    .dots{display:none}
+    .hide-m{display:none}
+    .tbl th:nth-child(3),.tbl td:nth-child(3){display:none}
+  }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="progress" id="prog"></div></div>
+<div class="dots" id="dots"></div>
+
+<div class="deck" id="deck">
+
+  <!-- 1 COVER -->
+  <section class="slide">
+    <div class="watermark reveal">ל.ק.י · הצעת מחיר</div>
+    <div class="kicker reveal">כתב כמויות ותמחור · 15.06.2026</div>
+    <h1 class="reveal">אתר מישור רותם<br><span class="big-num">17MW</span> + אגירה</h1>
+    <p class="sub reveal">הצעת מחיר של ל.ק.י לעבודות הקמה בשדה סולארי — מול נקסטקום / אנרג'יקס. סקירה מסודרת של כל סעיפי העבודה, הכמויות, המחירים והפריטים הפתוחים.</p>
+    <div class="cover-meta reveal">
+      <span class="chip">מזמין: <b>נקסטקום / אנרג'יקס</b></span>
+      <span class="chip">מנהל פרויקט: <b>יוחנן מור</b></span>
+      <span class="chip">מנהל אתר: <b>אסף שמואל</b></span>
+      <span class="chip">אגירה: <b>13 מכולות</b></span>
+    </div>
+    <div class="foot">← → לניווט</div>
+  </section>
+
+  <!-- 2 OVERVIEW -->
+  <section class="slide">
+    <div class="kicker reveal">סקירה כללית</div>
+    <h2 class="reveal">תמונת הפרויקט במספרים</h2>
+    <div class="grid g4 reveal" style="margin-top:26px">
+      <div class="card"><div class="lbl">הספק מותקן</div><div class="val">17 MW</div></div>
+      <div class="card"><div class="lbl">פאנלים</div><div class="val">23,500</div></div>
+      <div class="card"><div class="lbl">נעיצות</div><div class="val">4,053</div></div>
+      <div class="card"><div class="lbl">מכולות אגירה</div><div class="val">13</div></div>
+    </div>
+    <div class="grid g3 reveal" style="margin-top:16px">
+      <div class="card"><div class="lbl">סך מחושב כיום</div><div class="val" style="color:var(--amber)">₪4.86M</div></div>
+      <div class="card"><div class="lbl">חפירה / מילוי</div><div class="val sm">6,928 קוב</div></div>
+      <div class="card"><div class="lbl">חישוף ויישור</div><div class="val sm">179,610 מ"ר</div></div>
+    </div>
+    <div class="note reveal">חדר חשמל למתחם האגירה — באחריות נקסטקום, כולל הנפה ומנוף.</div>
+  </section>
+
+  <!-- 3 HOW TO READ -->
+  <section class="slide">
+    <div class="kicker reveal">איך לקרוא את התמחור</div>
+    <h2 class="reveal">שלוש עמודות מחיר — אל תתבלבל</h2>
+    <div class="grid g3 reveal" style="margin-top:26px">
+      <div class="card"><div class="lbl">① מחיר יעד</div><div class="val sm">מה שהמזמין ביקש / נקודת פתיחה</div></div>
+      <div class="card" style="border-color:var(--amber)"><div class="lbl">② מחיר ל.ק.י</div><div class="val sm" style="color:var(--red)">ריק — צריך למלא את המחיר שלך</div></div>
+      <div class="card"><div class="lbl">③ מחיר מטרה</div><div class="val sm" style="color:var(--green)">המחיר הסופי / המנוהל</div></div>
+    </div>
+    <div class="note reveal" style="margin-top:24px">במצגת הזו כל הסכומים מחושבים לפי <b>מחיר מטרה × כמות</b>. בכמה סעיפים היעד ירד למטרה: נעיצות 120→110, קונסטרוקציה 72→62.</div>
+    <div class="note r reveal">עמודת «מחיר ל.ק.י» ריקה לחלוטין — זה הפער המרכזי שצריך להשלים לפני הגשה.</div>
+  </section>
+
+  <!-- 4 EARTH + CIVIL -->
+  <section class="slide">
+    <div class="kicker reveal">עבודות עפר + אזרחי</div>
+    <h2 class="reveal">הסעיפים הכבדים של הפרויקט</h2>
+    <div class="reveal" style="margin-top:18px;overflow-x:auto">
+    <table class="tbl">
+      <tr><th>תחום</th><th>סעיף</th><th>כמות</th><th>יח'</th><th>מחיר</th><th>סה"כ</th></tr>
+      <tr><td><span class="domain">עפר</span></td><td>חפירה ומילוי (Cut/Fill)</td><td class="num">6,928</td><td>קוב</td><td class="num">45</td><td class="tot">311,760</td></tr>
+      <tr><td></td><td>חישוף ויישור גס</td><td class="num">179,610</td><td>מ"ר</td><td class="num">0.4</td><td class="tot">71,844</td></tr>
+      <tr><td><span class="domain">אזרחי</span></td><td>מצעים ודרכים (כולל חומר)</td><td class="num">5,000</td><td>קוב</td><td class="num">200</td><td class="tot">1,000,000</td></tr>
+      <tr><td></td><td>מעבר אירי בטון — גדול</td><td class="num">5</td><td>יח'</td><td class="num">28,000</td><td class="tot">140,000</td></tr>
+      <tr><td></td><td>מעבר אירי בטון — קל</td><td class="num">3</td><td>יח'</td><td class="num">5,000</td><td class="tot">15,000</td></tr>
+      <tr><td></td><td>ניקוז / שיפועים</td><td class="num">3,000</td><td>קוב</td><td class="num">45</td><td class="tot">135,000</td></tr>
+      <tr><td></td><td>בטונים / משטחים (ללא כלונסאות)</td><td class="num">1</td><td>קוב</td><td class="num">3,000</td><td class="tot">3,000</td></tr>
+      <tr><td></td><td>נעיצות (ללא מיקרופייל)</td><td class="num">4,053</td><td>יח'</td><td class="num">110</td><td class="tot">445,830</td></tr>
+      <tr><td></td><td>נעיצות DCCB</td><td class="num">100</td><td>יח'</td><td class="num">110</td><td class="tot">11,000</td></tr>
+      <tr><td></td><td>קונסטרוקציה ופאנלים (עבודה)</td><td class="num">23,500</td><td>פאנל</td><td class="num">62</td><td class="tot">1,457,000</td></tr>
+      <tr class="sum"><td></td><td>סה"כ עפר + אזרחי</td><td></td><td></td><td></td><td class="tot">3,590,434</td></tr>
+    </table>
+    </div>
+  </section>
+
+  <!-- 5 ELECTRICAL + STORAGE + MECH -->
+  <section class="slide">
+    <div class="kicker reveal">חשמל · אגירה · מכאני</div>
+    <h2 class="reveal">חשמל שדה, מרכזי אנרגיה וסעיפים לפי מ"א</h2>
+    <div class="reveal" style="margin-top:18px;overflow-x:auto">
+    <table class="tbl">
+      <tr><th>תחום</th><th>סעיף</th><th>כמות</th><th>יח'</th><th>מחיר</th><th>סה"כ</th></tr>
+      <tr><td><span class="domain">חשמל</span></td><td>חשמל סטרינגים + DCCB + מטאו + תקשורת</td><td class="num">17,500</td><td>KW</td><td class="num">65</td><td class="tot">1,137,500</td></tr>
+      <tr><td><span class="domain">אגירה</span></td><td>עבודות חשמל — חיבור מכולות</td><td class="num">13</td><td>מכולה</td><td class="num">10,000</td><td class="tot">130,000</td></tr>
+      <tr><td></td><td>ביסוס, הצבה ופיתוח מכולות</td><td class="num">13</td><td>מכולה</td><td class="num">—</td><td><span class="tag open">ללא מחיר</span></td></tr>
+      <tr><td><span class="domain">מכאני</span></td><td>תת"ק חפירה+כיסוי כבלים</td><td>—</td><td>מ"א</td><td class="num">65</td><td><span class="tag open">חסר כמות</span></td></tr>
+      <tr><td></td><td>הנחת כבלים בתעלה (כבל 300)</td><td>—</td><td>מ"א</td><td class="num">13</td><td><span class="tag open">חסר כמות</span></td></tr>
+      <tr><td></td><td>יק"ע / שרשורית</td><td>—</td><td>מ"א</td><td class="num">6</td><td><span class="tag open">חסר כמות</span></td></tr>
+      <tr><td></td><td>הידרנט / קו מים · אספקת חול · עמדת DCCB</td><td>—</td><td>—</td><td class="num">3,800 / 67 / 700</td><td><span class="tag open">חסר כמות</span></td></tr>
+      <tr class="sum"><td></td><td>סה"כ מחושב (חשמל + אגירה)</td><td></td><td></td><td></td><td class="tot">1,267,500</td></tr>
+    </table>
+    </div>
+    <div class="note reveal">כל סעיפי «מכאני» מתומחרים ליחידה אך ממתינים לתוכניות לתמחור סופי (כמויות).</div>
+  </section>
+
+  <!-- 6 SUMMARY / BARS -->
+  <section class="slide">
+    <div class="kicker reveal">סיכום עלויות</div>
+    <h2 class="reveal">4 סעיפים = <span class="big-num">83%</span> מהעלות</h2>
+    <div class="bars reveal" style="margin-top:24px">
+      <div class="bar-row"><div class="name">קונסטרוקציה ופאנלים</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="v">₪1,457,000</div></div>
+      <div class="bar-row"><div class="name">חשמל סטרינגים</div><div class="bar-track"><div class="bar-fill" style="width:78%"></div></div><div class="v">₪1,137,500</div></div>
+      <div class="bar-row"><div class="name">מצעים ודרכים</div><div class="bar-track"><div class="bar-fill" style="width:69%"></div></div><div class="v">₪1,000,000</div></div>
+      <div class="bar-row"><div class="name">נעיצות</div><div class="bar-track"><div class="bar-fill" style="width:31%"></div></div><div class="v">₪445,830</div></div>
+      <div class="bar-row"><div class="name" style="color:var(--muted)">שאר הסעיפים</div><div class="bar-track"><div class="bar-fill" style="width:56%;opacity:.5"></div></div><div class="v">₪817,604</div></div>
+    </div>
+    <div class="grid g2 reveal" style="margin-top:26px">
+      <div class="card"><div class="lbl">סך מחושב כיום (ללא פתוחים)</div><div class="val" style="color:var(--amber)">₪4,857,934</div></div>
+      <div class="card"><div class="lbl">4 הסעיפים הכבדים</div><div class="val">₪4,040,330</div></div>
+    </div>
+  </section>
+
+  <!-- 7 OPEN ITEMS -->
+  <section class="slide">
+    <div class="kicker reveal">פריטים פתוחים</div>
+    <h2 class="reveal">מה חסר לפני הגשה</h2>
+    <ul class="clean r reveal" style="margin-top:22px">
+      <li><b>עמודת «מחיר ל.ק.י»</b> — ריקה לחלוטין בכל השורות.</li>
+      <li><b>מכאני</b> — כל הסעיפים ללא כמויות («נדרשת תוכנית לתמחור»).</li>
+      <li><b>ביסוס מכולות אגירה</b> — 13 מכולות ללא מחיר.</li>
+      <li><b>כלוב ממירים</b> — ₪30,000/טון, ללא כמות טון.</li>
+      <li><b>מנהל עבודה</b> — ₪45,000/חודש, ללא מספר חודשים.</li>
+      <li><b>פסולת</b> — מכולת 8 קוב + פול-טריילר, ללא מחיר.</li>
+      <li><b>ניפוי תוצרי חישוף</b> — ללא כמות וללא מחיר.</li>
+    </ul>
+    <div class="note reveal">השלמת 7 הסעיפים האלה תזיז את הסכום מ-₪4.86M כלפי מעלה משמעותית — בעיקר ניהול אתר (חודשים) וכלובי ממירים.</div>
+  </section>
+
+  <!-- 8 REGIE -->
+  <section class="slide">
+    <div class="kicker reveal">מחירון רג'י</div>
+    <h2 class="reveal">יומיות כלים ועובדים (₪ ליום)</h2>
+    <div class="grid g4 reveal" style="margin-top:24px">
+      <div class="card"><div class="lbl">פירקית / מיכלית פירקית</div><div class="val">4,000</div></div>
+      <div class="card"><div class="lbl">שופל</div><div class="val">3,800</div></div>
+      <div class="card"><div class="lbl">מיכלית מים</div><div class="val">3,000</div></div>
+      <div class="card"><div class="lbl">בובקט זחל</div><div class="val">3,000</div></div>
+      <div class="card"><div class="lbl">בובקט גלגלים</div><div class="val">2,500</div></div>
+      <div class="card"><div class="lbl">בומאג</div><div class="val">2,500</div></div>
+      <div class="card"><div class="lbl">עובד + נסיעות</div><div class="val">1,500</div></div>
+      <div class="card"><div class="lbl">הובלות (בובקט/פירקית/בומאג)</div><div class="val">2,000–4,000</div></div>
+    </div>
+  </section>
+
+  <!-- 9 RESPONSIBILITY -->
+  <section class="slide">
+    <div class="kicker reveal">נושאים לדיון · חלוקת אחריות</div>
+    <h2 class="reveal">מי אחראי על מה</h2>
+    <div class="grid g2 reveal" style="margin-top:22px">
+      <div class="card">
+        <div class="lbl"><span class="tag lky">ל.ק.י</span></div>
+        <ul class="clean" style="margin-top:14px">
+          <li>סדר וניקיון יומי · בטיחות בשטח</li>
+          <li>פריקת חומר ממלגזות · שולחנות מניעת סיכונים</li>
+          <li>צוות הדרכה (למידת התקנה באשלים) · פיילוט מאושר</li>
+          <li>מכולה · סיווג קבלני · אספקת סולר (חיוב נקסטקום)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="lbl"><span class="tag nx">נקסטקום</span></div>
+        <ul class="clean" style="margin-top:14px">
+          <li>גנרטור חשמל · שירותים כימיים</li>
+          <li>הובלה והנפת מכולות · שומר בגדר</li>
+          <li>אספקת שילוט · חדר חשמל לאגירה (כולל מנוף)</li>
+          <li>מודד לסימון נעיצות (באחריות המזמין)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note reveal">שבירת פנלים: נדרש נוהל שבירה ותיעוד · אחוז שבירה מקובל <b>0.5%</b>.</div>
+  </section>
+
+  <!-- 10 CLOSE -->
+  <section class="slide">
+    <div class="watermark reveal">ל.ק.י × נקסטקום / אנרג'יקס</div>
+    <div class="kicker reveal">סיכום</div>
+    <h1 class="reveal">סך מחושב<br><span class="big-num">₪4,857,934</span></h1>
+    <p class="sub reveal">לפני השלמת הפריטים הפתוחים (מכאני, אגירה-ביסוס, כלובים, ניהול, פסולת) ומילוי עמודת «מחיר ל.ק.י». עם ההשלמות — הסכום צפוי לעלות.</p>
+    <div class="cover-meta reveal">
+      <span class="chip">17MW · 23,500 פאנל</span>
+      <span class="chip">4 סעיפים = <b>83%</b></span>
+      <span class="chip">7 פריטים פתוחים</span>
+    </div>
+    <div class="foot">מישור רותם · 15.06.2026</div>
+  </section>
+
+</div>
+
+<div class="nav">
+  <button id="next" aria-label="הבא">›</button>
+  <span class="counter" id="counter">1 / 10</span>
+  <button id="prev" aria-label="הקודם">‹</button>
+</div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  const dotsWrap=document.getElementById('dots');
+  const prog=document.getElementById('prog');
+  const counter=document.getElementById('counter');
+  let i=0;
+  slides.forEach((_,n)=>{
+    const d=document.createElement('div');d.className='dot';d.onclick=()=>go(n);dotsWrap.appendChild(d);
+  });
+  const dots=[...document.querySelectorAll('.dot')];
+  function go(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    dots.forEach((d,k)=>d.classList.toggle('on',k===i));
+    prog.style.width=((i+1)/slides.length*100)+'%';
+    counter.textContent=(i+1)+' / '+slides.length;
+  }
+  document.getElementById('next').onclick=()=>go(i+1);
+  document.getElementById('prev').onclick=()=>go(i-1);
+  // RTL: arrows feel natural — Right=back, Left=forward
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowLeft'||e.key==='PageDown'||e.key===' ')go(i+1);
+    if(e.key==='ArrowRight'||e.key==='PageUp')go(i-1);
+    if(e.key==='Home')go(0); if(e.key==='End')go(slides.length-1);
+  });
+  let sx=0;
+  document.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
+  document.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-sx;
+    if(Math.abs(dx)>50){dx<0?go(i+1):go(i-1)}
+  },{passive:true});
+  go(0);
+</script>
+</body>
+</html>
