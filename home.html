@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LKY × Bustan — מרכז המסמכים</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;700;900&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#1b251f;--bg2:#222e27;
+    --panel:rgba(255,255,255,.05);--panel-brd:rgba(255,255,255,.11);
+    --ink:#f5f2ea;--muted:#93a398;
+    --gold:#e3a93a;--gold2:#c98a1e;
+    --teal:#5fbfa9;--teal2:#3d8d7e;
+    --sun1:#ffe06a;--sun2:#ff9f43;--sun3:#ec4f86;--lky:#ec4f86;
+    --line:rgba(255,255,255,.08);
+    --radius:20px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Heebo',sans-serif;color:var(--ink);min-height:100vh;
+    background:
+      radial-gradient(1100px 620px at 88% -10%, rgba(236,79,134,.14), transparent 56%),
+      radial-gradient(1000px 620px at -8% 110%, rgba(227,169,58,.12), transparent 54%),
+      var(--bg);
+    display:flex;flex-direction:column;position:relative;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E")}
+  .wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;width:100%;
+    padding:clamp(34px,7vw,90px) clamp(22px,5vw,48px) 40px;flex:1;display:flex;flex-direction:column}
+
+  /* brand marks */
+  .mk-sun{border-radius:50%;background:linear-gradient(180deg,#ffe06a 0%,#ffb24d 46%,#ec4f86 100%);
+    box-shadow:0 0 22px rgba(236,79,134,.45), inset 0 -4px 9px rgba(150,20,70,.32)}
+  .mk-orb{position:relative;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f6d488,#e3a93a 60%,#b07f1c);
+    box-shadow:inset 0 -3px 8px rgba(80,52,4,.45)}
+  .mk-orb::after{content:"";position:absolute;inset:-32% -14%;border:2px solid var(--teal);
+    border-radius:50%;transform:rotate(-24deg);opacity:.92;box-shadow:0 0 7px rgba(95,191,169,.35)}
+
+  /* hero lockup */
+  .lock{display:inline-flex;align-items:center;gap:16px;animation:rise .7s both}
+  .lock .mk-sun{width:54px;height:54px}
+  .lock .mk-orb{width:54px;height:54px}
+  .wm{font-family:'Jost',sans-serif;text-transform:uppercase;letter-spacing:.36em;font-weight:300;
+    font-size:clamp(22px,4vw,34px);color:var(--ink)}
+  .wm-bustan{font-weight:600;letter-spacing:.06em;color:#fff;text-transform:none;font-size:clamp(24px,4.4vw,38px)}
+  .x{color:var(--muted);font-weight:300;font-size:clamp(20px,3vw,28px)}
+
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;margin-top:38px;font-family:'Jost',sans-serif;
+    font-size:12.5px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);animation:rise .7s .08s both}
+  .eyebrow::before{content:"";width:26px;height:2px;background:linear-gradient(90deg,var(--gold),transparent)}
+  h1{font-size:clamp(34px,7vw,68px);line-height:1.04;font-weight:900;letter-spacing:-.02em;margin-top:14px;animation:rise .7s .14s both}
+  .grad{font-family:'Frank Ruhl Libre',serif;background:linear-gradient(120deg,var(--sun1),var(--sun2) 48%,var(--sun3));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead{color:var(--muted);font-size:clamp(16px,1.8vw,20px);font-weight:300;max-width:60ch;margin-top:18px;line-height:1.65;animation:rise .7s .2s both}
+
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+  .doc{position:relative;display:flex;flex-direction:column;text-decoration:none;color:inherit;
+    background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02));
+    border:1px solid var(--panel-brd);border-radius:var(--radius);padding:26px 24px;overflow:hidden;
+    transition:transform .28s cubic-bezier(.2,.8,.2,1),border-color .28s,box-shadow .28s;animation:rise .7s both}
+  .doc:nth-child(1){animation-delay:.26s}.doc:nth-child(2){animation-delay:.32s}.doc:nth-child(3){animation-delay:.38s}
+  .doc::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;opacity:.9}
+  .doc.gold::before{background:linear-gradient(90deg,var(--gold),transparent)}
+  .doc.teal::before{background:linear-gradient(90deg,var(--teal),transparent)}
+  .doc.sun::before{background:linear-gradient(90deg,var(--sun3),var(--sun2),transparent)}
+  .doc:hover{transform:translateY(-6px);border-color:rgba(255,255,255,.24);box-shadow:0 24px 50px -24px rgba(0,0,0,.7)}
+  .ic{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:18px}
+  .doc.gold .ic{background:rgba(227,169,58,.15);border:1px solid rgba(227,169,58,.3)}
+  .doc.teal .ic{background:rgba(95,191,169,.15);border:1px solid rgba(95,191,169,.3)}
+  .doc.sun .ic{background:rgba(236,79,134,.15);border:1px solid rgba(236,79,134,.3)}
+  .doc h3{font-size:21px;font-weight:900;letter-spacing:-.01em}
+  .doc p{color:var(--muted);font-size:14.5px;line-height:1.55;margin-top:8px;flex:1}
+  .doc .go{margin-top:18px;font-weight:700;font-size:14px;display:inline-flex;align-items:center;gap:7px}
+  .doc.gold .go{color:var(--gold)}.doc.teal .go{color:var(--teal)}.doc.sun .go{color:var(--sun2)}
+  .doc .go .ar{transition:transform .25s}
+  .doc:hover .go .ar{transform:translateX(-5px)}
+
+  .meta{display:flex;flex-wrap:wrap;gap:12px;margin-top:40px;animation:rise .7s .44s both}
+  .chip{background:var(--panel);border:1px solid var(--panel-brd);border-radius:999px;padding:8px 16px;font-size:13px;color:var(--muted)}
+  .chip b{color:var(--ink);font-weight:700}
+
+  footer{position:relative;z-index:1;border-top:1px solid var(--line);margin-top:54px;
+    padding:24px clamp(22px,5vw,48px);display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+    color:var(--muted);font-size:12.5px;max-width:1080px;margin-left:auto;margin-right:auto;width:100%}
+  footer .fl{display:inline-flex;align-items:center;gap:9px}
+  footer .mk-sun{width:18px;height:18px}footer .mk-orb{width:18px;height:18px}
+  footer .wm{font-size:12px;letter-spacing:.28em}footer .wm-bustan{font-size:13px}
+
+  @keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+  @media(max-width:780px){.cards{grid-template-columns:1fr}.lock{gap:12px}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="lock">
+      <span class="mk-sun"></span>
+      <span class="wm">LKY</span>
+      <span class="x">×</span>
+      <span class="wm wm-bustan">Bustan</span>
+      <span class="mk-orb"></span>
+    </div>
+
+    <div class="eyebrow">מסגרת מיזוג · 2026</div>
+    <h1>שני מנועים,<br><span class="grad">חברה אחת</span></h1>
+    <p class="lead">מרכז המסמכים של המיזוג בין LKY (אביתר) לבוסטן — תמחור הפרויקט, עקרונות השותפות, וכלי ניהול הביצוע. הכל בשפה עיצובית אחת.</p>
+
+    <div class="cards">
+      <a class="doc gold" href="./">
+        <div class="ic">🧾</div>
+        <h3>תמחור הפרויקט</h3>
+        <p>כתב כמויות מלא — מישור רותם 17MW + אגירה. סעיפים, מחירים, וסיכום עלויות.</p>
+        <span class="go">פתח <span class="ar">←</span></span>
+      </a>
+      <a class="doc teal" href="shutafut.html">
+        <div class="ic">🤝</div>
+        <h3>עקרונות השותפות</h3>
+        <p>מסגרת המיזוג — חלוקת אחריות, תגמול, הון, קבלת החלטות והגנות.</p>
+        <span class="go">פתח <span class="ar">←</span></span>
+      </a>
+      <a class="doc sun" href="nihul.html">
+        <div class="ic">📊</div>
+        <h3>ניהול פרויקט</h3>
+        <p>תכנון מול ביצוע — גאנט, פתיחת/סגירת שבוע, תזרים ודוח רווחיות.</p>
+        <span class="go">פתח <span class="ar">←</span></span>
+      </a>
+    </div>
+
+    <div class="meta">
+      <span class="chip">פרויקט: <b>מישור רותם 17MW</b></span>
+      <span class="chip">אחזקות <b>50/50</b></span>
+      <span class="chip">היקף מחושב <b>₪4.86M</b></span>
+    </div>
+  </div>
+
+  <footer>
+    <span class="fl"><span class="mk-sun"></span><span class="wm">LKY</span><span class="x">×</span><span class="wm wm-bustan">Bustan</span><span class="mk-orb"></span></span>
+    <span>טיוטה לדיון · 2026</span>
+  </footer>
+</body>
+</html>
